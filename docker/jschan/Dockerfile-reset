@@ -1,6 +1,6 @@
-FROM node:16
+FROM node:lts
 
-WORKDIR /opt
+WORKDIR /opt/jschan
 
 COPY . .
 
@@ -15,6 +15,4 @@ ENV MONGO_USERNAME jschan
 ENV MONGO_PASSWORD changeme
 ENV REDIS_PASSWORD changeme
 
-RUN gulp generate-favicon
-
-CMD ["/bin/sh", "-c", "gulp reset; gulp"]
+CMD ["/bin/sh", "-c", "gulp generate-favicon; gulp reset; gulp"]

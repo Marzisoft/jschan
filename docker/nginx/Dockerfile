@@ -26,7 +26,7 @@ RUN set -ex \
         echo "XSLScript checksum verification failed!"; \
         exit 1; \
     fi \
-    && hg clone -r ${NGINX_VERSION}-${PKG_RELEASE%%~*} https://hg.nginx.org/pkg-oss/ \
+    && git clone --branch ${NGINX_VERSION}-${PKG_RELEASE%%~*} --single-branch https://github.com/nginx/pkg-oss.git \
     && cd pkg-oss \
     && mkdir /tmp/packages \
     && for module in $ENABLED_MODULES; do \
@@ -72,7 +72,7 @@ FROM nginx:mainline
 COPY --from=builder /tmp/packages /tmp/packages
 RUN set -ex \
     && apt update \
-    && apt-get install wget -y \
+    && apt-get install sudo wget -y \
     && . /tmp/packages/modules.env \
     && for module in $BUILT_MODULES; do \
            apt install --no-install-suggests --no-install-recommends -y /tmp/packages/nginx-module-${module}_${NGINX_VERSION}*.deb; \
@@ -92,6 +92,12 @@ COPY ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./docker/nginx/jschan.conf /etc/nginx/conf.d/
 
 COPY ./configs/nginx/snippets/ /etc/nginx/snippets/
+
+COPY ./docker/nginx/nginx.sh /opt/jschan/nginx.sh
+
+WORKDIR /opt/jschan
+
+RUN ./nginx.sh
 
 EXPOSE 80
 

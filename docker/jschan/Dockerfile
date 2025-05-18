@@ -1,9 +1,9 @@
-FROM node:16
+FROM node:lts
 
 RUN apt-get update -y
 RUN apt-get install ffmpeg imagemagick graphicsmagick -y
 
-WORKDIR /opt
+WORKDIR /opt/jschan
 
 COPY . .
 
@@ -18,6 +18,4 @@ ENV MONGO_USERNAME jschan
 ENV MONGO_PASSWORD changeme
 ENV REDIS_PASSWORD changeme
 
-RUN gulp generate-favicon
-
-CMD ["/bin/sh", "-c", "gulp; pm2-runtime start ecosystem.config.js"]
+CMD ["/bin/sh", "-c", "gulp generate-favicon; gulp; pm2-runtime start ecosystem.config.js"]

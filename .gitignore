@@ -9,6 +9,7 @@ configs/*.js
 tmp/
 static/*
 docker/static/*
+docker/secrets.env
 
 # ignore some gulp resources
 /gulp/res/css/codethemes

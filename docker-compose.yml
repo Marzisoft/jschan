@@ -1,15 +1,15 @@
-version: "3.5"
 services:
 
   redis:
-    command: redis-server --requirepass changeme
+    command: /bin/sh -c "redis-server --requirepass $$REDIS_PASSWORD"
     image: redis:alpine
+    env_file: ./docker/secrets.env
 
   mongodb:
     image: mongo:latest
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=jschan
-      - MONGO_INITDB_ROOT_PASSWORD=changeme
+    env_file: ./docker/secrets.env
+    volumes:
+      - db-data:/data/db
 
   nginx:
     build:
@@ -18,9 +18,9 @@ services:
       args:
         ENABLED_MODULES: geoip
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
-      - ./docker/static/:/path/to/jschan/static/
+      - ./docker/static/:/opt/jschan/static/
     depends_on:
       - jschan
 
@@ -28,43 +28,16 @@ services:
     build:
       context: .
       dockerfile: ./docker/jschan/Dockerfile
-      network: default
+    env_file: ./docker/secrets.env
     environment:
       - NODE_ENV=development
-      - JSCHAN_IP=0.0.0.0
       - NO_CAPTCHA=1
-      - MONGO_USERNAME=jschan
-      - MONGO_PASSWORD=changeme
-      - REDIS_PASSWORD=changeme
-      - COOKIE_SECRET=changeme
-      - TRIPCODE_SECRET=changeme
-      - IP_HASH_SECRET=changeme
-      - POST_PASSWORD_SECRET=changeme
-      - GOOGLE_SITEKEY=changeme
-      - GOOGLE_SECRETKEY=changeme
-      - HCAPTCHA_SITEKEY=10000000-ffff-ffff-ffff-000000000001
-      - HCAPTCHA_SECRETKEY=0x0000000000000000000000000000000000000000
     volumes:
-      - ./docker/static:/opt/static/
+      - ./docker/static:/opt/jschan/static/
     depends_on:
       - redis
       - mongodb
 
-  jschan-reset:
-    build:
-      context: .
-      dockerfile: ./docker/jschan/Dockerfile-reset
-      network: default
-    environment:
-      - MONGO_USERNAME=jschan
-      - MONGO_PASSWORD=changeme
-      - REDIS_PASSWORD=changeme
-    volumes:
-      - ./docker/static:/opt/static/
-    depends_on:
-      - redis
-      - mongodb
+volumes:
+  db-data:
 
-networks:
-  default:
-    name: jschan_default
