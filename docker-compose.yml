@@ -31,7 +31,6 @@ services:
     env_file: ./docker/secrets.env
     environment:
       - NODE_ENV=development
-      - NO_CAPTCHA=1
     volumes:
       - ./docker/static:/opt/jschan/static/
     depends_on:
