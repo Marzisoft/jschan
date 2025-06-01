@@ -1,12 +1,13 @@
 unless minimal
 	nav.navbar
-		a.nav-item(href='/index.html') #{__('Home')}
-		a(href='/boards.html' class=`nav-item ${enableWebring ? 'short-nav' : ''}`)
-			| #{__('Boards')} 
-			if enableWebring
-				.rainbow +Webring
-		a.nav-item#overboardlink(href='/overboard.html') #{__('Overboard')}
-		a.nav-item(href='/account.html') #{__('Account')}
-		if !modview && board
-			a.nav-item(href=`/${board._id}/manage/${managePage || 'index.html'}`) #{__('Manage')}
-		a.jsonly.nav-item.right#settings(data-label=(__('Settings')))
+		div.navbar-edge()
+		div.fn.nav-item()
+			| [ 
+			a.no-decoration(href='/plaza/index.html') #{__('plaza')}
+			|  / 
+			a.no-decoration(href='/meta/index.html') #{__('meta')}
+			|  ]
+		div.navbar-edge.jr()
+			if !modview && board
+				a.nav-item(href=`/${board._id}/manage/${managePage || 'index.html'}`) #{__('[Manage]')}
+			a.jsonly.nav-item.right#settings(data-label=(__('[Settings]')))
