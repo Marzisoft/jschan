@@ -1,6 +1,7 @@
 unless minimal
 	nav.navbar
 		div.navbar-edge()
+			a.nav-item(href='/index.html') #{__('[Home]')}
 		div.fn.nav-item()
 			| [ 
 			a.no-decoration(href='/plaza/index.html') #{__('plaza')}
@@ -9,5 +10,5 @@ unless minimal
 			|  ]
 		div.navbar-edge.jr()
 			if !modview && board
-				a.nav-item(href=`/${board._id}/manage/${managePage || 'index.html'}`) #{__('[Manage]')}
+				a.nav-item(href=`/${board._id}/manage/${managePage || 'index.html'}`) #{__('[Mod]')}
 			a.jsonly.nav-item.right#settings(data-label=(__('[Settings]')))
