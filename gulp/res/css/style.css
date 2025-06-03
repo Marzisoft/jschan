@@ -1196,6 +1196,11 @@ input:invalid, textarea:invalid {
 	line-height: 1.5em;
 }
 
+.footer div {
+	line-height: 1;
+	margin: 0.5em 0 0.5em 0;
+}
+
 a.button {
 	-webkit-appearance: button;
 	-moz-appearance: button;

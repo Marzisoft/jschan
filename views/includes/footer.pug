@@ -1,5 +1,5 @@
 unless minimal
-	small.footer#bottom
+	div.footer#bottom
 		| - 
 		a(href='/news.html') #{__('news')}
 		|  - 
@@ -8,8 +8,16 @@ unless minimal
 		a(href='/faq.html') #{__('faq')}
 		|  - 
 		div
-			a(href='https://gitgud.io/fatchan/jschan/') jschan
-			|  #{version}
+			| friend sites:
+			br
+			| [ 
+			a(href='https://wapchan.org') wapchan
+			|  ]
+		div
+			small
+				a(href='https://github.com/Marzisoft/jschan') jschan
+				pre.di.no-m-p  #{version}#{__('  |  ')}
+				a(href='/account.html') account
 
 //- "render" script - for scripted things that are blocking
 script(src=`/js/render.js?v=${commit}`)
