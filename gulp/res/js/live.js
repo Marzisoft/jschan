@@ -155,7 +155,6 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 				if (!replies) {
 					const quotedPostData = quotedPost.querySelector('.post-data');
 					const newRepliesDiv = document.createElement('div');
-					newRepliesDiv.textContent = 'Replies: ';
 					newRepliesDiv.classList.add('replies', 'mt-5', 'ml-5');
 					quotedPostData.appendChild(newRepliesDiv);
 					replies = newRepliesDiv;

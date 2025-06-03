@@ -190,7 +190,7 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 							| + #[a(href=`${postURL}#${post.postId}`) #{__('%s earlier', ombls)}]
 							|  
 			else if post.backlinks && post.backlinks.length > 0
-				div.replies.mt-5.ml-5 #{__n('Replies', 2)}: 
+				div.replies.mt-5.ml-5
 					each backlink in post.backlinks
 						a.quote(href=`${postURL}#${backlink.postId}`) &gt;&gt;#{backlink.postId}
 						|  
