@@ -1500,6 +1500,10 @@ table.accounttable td:nth-child(1) {
 	display: inline;
 }
 
+.db {
+	display: block;
+}
+
 table, .boardtable {
 	max-width: 100%;
 }
