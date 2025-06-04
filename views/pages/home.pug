@@ -5,15 +5,26 @@ block head
 	title #{meta.siteName}
 
 block content
-	h1.board-title #{meta.siteName}
+	img.home-logo(src='/file/logo.svg' width='300' title=meta.siteName)
 	.table-container.flex-center.mv-10.text-center
 		table
 			tr
-				th.alt #{__('Welcome')}
+				th.alt(style='font-size:11pt') #{__('~ Welcome to Marzichan ~')}
 			tr
 				td
 					pre.no-m-p
-						| The site administrator should edit views/pages/home.pug, then run "pm2 reload all" and "gulp html" to customise this page.
+						p
+							| The best thing since sliced almonds!
+						p
+							| Marzichan is a friendly imageboard for funposting, socializing, and discussing hobbies and interests.
+							| Whether it be camaraderie, creativity, or simple conversation, let's posting fun with Marzichan!
+						p
+							| Make sure to check out the 
+							a(href='/rules.html') site rules
+							|  before posting, and optionally the 
+							a(href='/faq.html') FAQ
+							|  for more info.
+							| ♥ Thank you for visiting! ♥
 	if recentNews && recentNews.length > 0
 		.table-container.flex-center.mv-10
 			table.newstable
@@ -31,7 +42,8 @@ block content
 	if hotThreads && hotThreads.length > 0
 		.table-container.flex-center.mv-10
 			table#hotposts
-				tr(colspan=3) 
+				tr
+					th(colspan=3) #{__('Hot Threads')}
 				each post, i in hotThreads
 					tr
 						td.text-center
