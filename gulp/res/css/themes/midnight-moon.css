@@ -1,0 +1,57 @@
+/* midnight moon */
+@import url('marzichan-shared.css');
+
+i.anchor:target + .catalog-tile, .anchor:target + .post-container, .anchor:target + table, .anchor:target + table tbody tr th, .post-container.highlighted, .post-container.hoverhighlighted {
+	--font-color: #fff9e7;
+	color: var(--font-color);
+}
+
+body {
+	background: linear-gradient(var(--background-top) 3em, var(--background-rest) 150px);
+}
+
+.expand-omitted {
+	background-color: var(--label-color);
+}
+
+a.button {
+	color: white;
+}
+
+:root {
+	--background-top: #353e57;
+	--background-rest: #1f1b29;
+
+	--navbar-color: #2c263c;
+	--post-color: #2c263c;
+
+	--highlighted-post-color: #353115;
+	--highlighted-post-outline-color: #bfaf6c;
+
+	--post-outline-color: #a490c4;
+	--hr: #a490c4aa;
+
+	--board-title: #a98db9;
+	--input-borders: #7f5b93;
+
+	--name-color: #82a7ff;
+	--capcode-color: #ff79c4;
+
+	--subject-color: #6ae3c5;
+	--greentext-color: #6ae3c5;
+
+	--link-color: #eba4ff;
+	--post-link-color: #eba4ff;
+	--link-hover: #fff5b2;
+
+	--label-color: #514566;
+	--alt-label-color: #514566;
+
+	--font-color: #e6d9ff;
+	--input-color: #e6d9ff;
+	--box-border-color: #e6d9ff;
+
+	--input-background: black;
+
+	--dice-color: #9a1dbd;
+}

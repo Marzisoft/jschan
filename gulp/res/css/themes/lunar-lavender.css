@@ -1,0 +1,66 @@
+/* lunar lavender */
+@import url('marzichan-shared.css');
+
+i.anchor:target + .catalog-tile, .anchor:target + .post-container, .anchor:target + table, .anchor:target + table tbody tr th, .post-container.highlighted, .post-container.hoverhighlighted {
+	--font-color: #745d18;
+	color: var(--font-color);
+}
+
+.anchor:target + table tbody tr th a:hover {
+	color: #aa3ea0 !important;
+}
+
+body {
+	background: linear-gradient(var(--background-top) 3em, var(--background-rest) 150px);
+}
+
+.expand-omitted {
+	background-color: var(--label-color);
+}
+
+/* make sure WCAG contrast is high enough on header links */
+th a, th a:visited, a.label, .label a {
+	color: #5a0173;
+}
+
+th a:hover, a.label:hover , .label a:hover {
+	color: #2b0137 !important;
+}
+
+:root {
+	--background-top: #e0fffd;
+	--background-rest: #f3edff;
+
+	--navbar-color: #e4d3fd;
+	--post-color: #e4d3fd;
+
+	--highlighted-post-color: #fff5b2;
+	--highlighted-post-outline-color: #bfaf6c;
+
+	--post-outline-color: #a490c4;
+	--hr: #a490c4aa;
+
+	--board-title: #725184;
+	--input-borders: #725184;
+
+	--name-color: #455197;
+	--capcode-color: #8b00ff;
+
+	--subject-color: #206856;
+	--greentext-color: #206856;
+
+	--link-color: #9a1dbd;
+	--post-link-color: #9a1dbd;
+	--link-hover: #e804d9;
+
+	--label-color: #a891d2;
+	--alt-label-color: #a891d2;
+
+	--font-color: #31004a;
+	--input-color: #31004a;
+	--box-border-color: #31004a;
+
+	--input-background: white;
+
+	--dice-color: #9a1dbd;
+}

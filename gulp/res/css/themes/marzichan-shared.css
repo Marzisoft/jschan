@@ -1,0 +1,65 @@
+/* marzichan shared */
+.nav-item {
+	line-height: 2em;
+}
+
+main {
+    margin: 2em 0 0 0;
+}
+
+#postform, #threadwatcher {
+	border: 1px solid var(--box-border-color);
+	padding: 5px;
+}
+
+.modal {
+	border: 1px solid var(--box-border-color);
+	padding: 5px;
+}
+
+/* box shadows */
+#float .post-container, #livetext, #threadstats, .bottom-reply, .catalog-tile, .collapse, .pages, .post-container, .stickynav {
+	box-shadow: 2px 2px var(--post-outline-color);
+	--reply-divider-color: var(--post-outline-color);
+}
+
+.anchor:target + .catalog-tile, .anchor:target + .post-container, .anchor:target + table, .anchor:target + table tbody tr th, .post-container.highlighted, .post-container.hoverhighlighted {
+	box-shadow: 2px 2px var(--highlighted-post-outline-color);
+	--reply-divider-color: var(--highlighted-post-outline-color);
+}
+
+.post-container.op {
+	box-shadow: none;
+}
+
+#postform {
+	box-shadow: 2px 2px var(--post-outline-color);
+}
+
+/* remove mobile post info divider */
+@media only screen and (max-width: 600px) {
+	.post-info {
+		border-bottom: none;
+	}
+
+	/* make edges of post form visible on mobile */
+	#postform {
+		width: 97%;
+		margin: 0 1.5% 0 1.5%;
+	}
+}
+
+/* add replies divider line, minimize indent */
+.replies {
+	border-top: 1px solid var(--reply-divider-color);
+	margin-left: 0 !important;
+}
+
+body {
+	font-family: "Inter", "M PLUS 1p", "Noto Emoji", sans-serif;
+}
+
+/* less spindly (You)s */
+.you::after {
+	font-weight: normal;
+}
