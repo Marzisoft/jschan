@@ -47,7 +47,7 @@ block content
 				each post, i in hotThreads
 					tr
 						td.text-center
-							span.help(title=__('Hot Thread (%s)', post.score.toFixed(1))) 🔥
+							span.help(title=__('Hot Thread (%s)', post.score.toFixed(1))) ★
 							|  #{post.replyposts}
 						td 
 							- const threadLink = `/${post.board}/thread/${post.postId}.html#${post.postId}`;
@@ -68,10 +68,6 @@ block content
 			each board in boards
 				tr
 					td 
-						if board.settings.sfw === true
-							span.left
-								span.help(title=__('SFW')) &#x1F4BC;
-								|  
 						a(href=`/${board._id}/index.html`) /#{board._id}/ - #{board.settings.name}
 					td #{board.settings.description}
 					td.nobreak #{board.pph}
@@ -85,7 +81,7 @@ block content
 		.table-container.flex-center.mv-10.text-center
 			table(style='max-width:450px')
 				tr
-					th #{__('Local Stats')}
+					th #{__('Site Stats')}
 				tr
 					td
 						pre.no-m-p
