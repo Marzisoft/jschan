@@ -1,12 +1,78 @@
 extends ../layout.pug
 
+
 block head
 	title Rules
+	style.
+		li + li {
+		  margin-top: 10px;
+		}
 
 block content
 	h1.board-title Rules
 	.table-container.flex-center.mv-10
 		table.table-body
-			tr.table-row
+			tr
+				th Global Rules
+			tr
 				td
-					p 1. Put rules here
+					ol(start='0')
+						li
+							| The rules are subject to change at any time, and ultimately serve as guidelines.
+							br
+							| Moderator and admin discretion is final.
+						li
+							| Do not evade moderation (bans, file/post deletion, etc).
+						li
+							| Unless otherwise stated, all boards are "safe-for-work".
+							br
+							| Do not post overtly sexual text or media. Artistic nudity that is not intended to arouse may be posted in moderation, but should be spoilered.
+						li
+							| Do not post "shock content" that is deliberately meant solely to offend or disgust.
+						li
+							| Do not encourage or engage in hateful or bigoted behavior.
+							br
+							| The use of any slur (or equivalent replacement) directed towards minority groups is highly likely to result in moderation, regardless of intent.
+						li
+							| Do not promote or participate in personal harassment or community "raids".
+						li
+							| Do not "flood" or spam the site with low-quality or repetitive posts.
+						li
+							| Do not post jak memes or derivatives. Do not use jak slang.
+						li
+							| Do not make "bait" threads that function primarily to provoke conflict or anger.
+							br
+							| Provocative statements or opinions are best accompanied by earnest engagement and an invitation to discuss, not fight.
+						li
+							| Avoid creating duplicate threads about the same topic.
+							br
+							| Use the board's catalog to check for existing threads before starting a new one.
+						li
+							| Use spoiler tags for applicable images and text, erring on the side of caution.
+							br
+							| Make sure it's clear what the spoilers are for if it isn't obvious from the context.
+							br
+							| Be thoughtful - even older media may be on someone's backlog.
+						li
+							| The community guidelines (see below), while not as clear-cut as the rules, should be considered when posting.
+							br
+							|  Patterns of behavior that run against the spirit of the guidelines may result in moderation.
+
+			tr
+				th Community Guidelines
+			tr
+				td
+					ul
+						li
+							| Consider the impact of your post before posting.
+							br
+							| Is it funny, informative, interesting, emotionally resonant, or helping to foster human connection?
+						li
+							| Marzichan is meant to be a fun, uplifting, and supportive place. While occasional conflict or disagreement is sometimes inevitable, let's do our best to get along, collaborate, and spread joy.
+						li
+							| Strive to post files that are of high (subjective) quality. Avoid reusing files that are commonly posted, or that users have likely already seen. 
+							strong Sharing your own original content is highly encouraged!
+						li
+							| Be nice! Post in good faith, with empathy for others. Don't personally attack other users, or seek to escalate conflict ("flaming").
+						li
+							| Please be mindful of site culture when posting. Avoid importing content or trends from other sites wholesale if they may not fit the spirit of Marzichan.
