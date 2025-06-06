@@ -15,9 +15,22 @@ unless minimal
 			|  ]
 		div
 			small
-				a(href='https://github.com/Marzisoft/jschan') jschan
-				pre.di.no-m-p  #{version}#{__('  |  ')}
+				| - 
 				a(href='/account.html') account
+				|  -
+				if board
+					|  
+					if !modview
+						a(href=`/${board._id}/manage/${managePage || 'index.html'}`) modview
+					else
+						a(href=`/${board._id}/${managePage || 'index.html'}`) userview
+					|  -
+		div
+			small
+				a(href='https://github.com/Marzisoft/jschan') jschan
+				|  #{version}
+				
+			
 
 //- "render" script - for scripted things that are blocking
 script(src=`/js/render.js?v=${commit}`)

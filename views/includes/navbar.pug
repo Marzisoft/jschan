@@ -9,6 +9,6 @@ unless minimal
 			a.no-decoration(href='/meta/index.html') #{__('meta')}
 			|  ]
 		div.navbar-edge.jr()
-			if !modview && board
-				a.nav-item(href=`/${board._id}/manage/${managePage || 'index.html'}`) #{__('[Mod]')}
+			if modview && board
+				a.nav-item(href=`/${board._id}/${managePage || 'index.html'}`) #{__('[Exit Modview]')}
 			a.jsonly.nav-item.right#settings(data-label=(__('[Settings]')))
