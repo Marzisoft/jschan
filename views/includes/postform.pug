@@ -11,7 +11,7 @@ section.form-wrapper.flex-center
 		section.row.jsonly
 			.noselect#postform-dragHandle #{isThread ? __('New Reply') : __('New Thread')}
 		if board.settings.forceAnon && !modview
-			section.row
+			section.row(style=(`display:${isThread ? '' : 'none'}`))
 				.label No-bump
 				label.postform-style.ph-5
 					input(type='checkbox', name='email', value='sage')
@@ -23,7 +23,7 @@ section.form-wrapper.flex-center
 				input.mr-1(type='text', name='name', placeholder=board.settings.defaultName maxlength=globalLimits.fieldLength.name)
 				a.close.postform-style(href='#!') ×
 			if board.settings.sageOnlyEmail && !modview
-				section.row
+				section.row(style=(`display:${isThread ? '' : 'none'}`))
 					.label #{__('No-bump')}
 					label.postform-style.ph-5
 						input(type='checkbox', name='email', value='sage')
