@@ -60,64 +60,46 @@ gulp.task('generate-favicon', function(done) {
 		dest: 'gulp/res/icons',
 		iconsPath: '/file/',
 		design: {
-			ios: {
-				pictureAspect: 'backgroundAndMargin',
-				backgroundColor: '#ffffff',
-				margin: '14%',
-				assets: {
-					ios6AndPriorIcons: false,
-					ios7AndLaterIcons: false,
-					precomposedIcons: false,
-					declareOnlyDefaultIcon: true
-				}
-			},
-			desktopBrowser: {
-				design: 'raw'
-			},
-			windows: {
-				pictureAspect: 'whiteSilhouette',
-				backgroundColor: '#da532c',
-				onConflict: 'override',
-				assets: {
-					windows80Ie10Tile: false,
-					windows10Ie11EdgeTiles: {
-						small: false,
-						medium: true,
-						big: false,
-						rectangle: false
-					}
-				}
-			},
-			androidChrome: {
-				pictureAspect: 'shadow',
-				themeColor: '#ffffff',
-				manifest: {
-					display: 'standalone',
-					orientation: 'notSet',
-					onConflict: 'override',
-					declared: true
+			"desktop": {
+				"darkIconTransformation": {
+					"type": "none",
+					"backgroundColor": "#ffffff",
+					"backgroundRadius": 0.7,
+					"imageScale": 0.7,
+					"brightness": 1
 				},
-				assets: {
-					legacyIcon: false,
-					lowResolutionIcons: false
+				"darkIconType": "regular",
+				"regularIconTransformation": {
+					"type": "none",
+					"backgroundColor": "#ffffff",
+					"backgroundRadius": 0.7,
+					"imageScale": 0.7,
+					"brightness": 1
 				}
 			},
-			safariPinnedTab: {
-				pictureAspect: 'blackAndWhite',
-				threshold: 30,
-				themeColor: '#990000'
+			"touch": {
+				"transformation": {
+					"type": "none",
+					"backgroundColor": "#ffffff",
+					"backgroundRadius": 0,
+					"imageScale": 0.7,
+					"brightness": 1
+				},
+				"appTitle": null
+			},
+			"webAppManifest": {
+				"transformation": {
+					"type": "none",
+					"backgroundColor": "#ffffff",
+					"backgroundRadius": 0,
+					"imageScale": 0.7,
+					"brightness": 1
+				},
+				"name": "MyWebSite",
+				"shortName": "MySite",
+				"backgroundColor": "#ffffff",
+				"themeColor": "#ffffff"
 			}
-		},
-		settings: {
-			scalingAlgorithm: 'Lanczos',
-			errorOnImageTooSmall: false,
-			readmeFile: false,
-			htmlCodeFile: true,
-			usePathAsIs: false
-		},
-		versioning: {
-			paramName: 'v',
-			paramValue: commit
 		},
 		markupFile: FAVICON_DATA_FILE
 	}, function() {
