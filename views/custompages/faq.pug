@@ -14,101 +14,178 @@ block content
 				th Frequently Asked Questions
 			tr
 				td.post-message
-					b General
+					b Marzichan
 					ul.mv-0
-						li: a(href='#whats-an-imageboard') What is an imageboard?
-						li: a(href='/rules.html') What are the rules?
-						li: a(href='#contact') How can I contact the administration?
-					b Making posts
+						li: a(href='#what-is-marzipan') What is marzipan?
+						li: a(href='#why-no-x-board') Why doesn't Marzichan have a board for X?
+						li: a(href='#questions') The FAQ doesn't answer my question.
+						li: a(href='#contact') How can I contact the admin?
+					b Browsing the site
 					ul.mv-0
-						li: a(href='#name-formatting') How do names, tripcodes and capcodes work?
-						li: a(href='#post-styling') What kind of styling options are available when making a post?
-						li: a(href='#post-info') What is the file size limit?
-					b Boards, users & permissions
+						li: a(href='#catalog') How do I browse through the threads on a board?
+						li: a(href='#track-threads') How can I keep track of the threads I'm interested in?
+						li: a(href='#notifications') How can I get notified when someone replies to me?
+						li: a(href='#dark') How do I use dark mode?
+						li: a(href='#reports') How do I report a post that breaks the rules?
+					b Posting
 					ul.mv-0
-						li: a(href='#make-a-board') How do I make my own board?
-						li: a(href='#antispam') What do the board settings for antispam do?
-						li: a(href='#archive-reverse-url-format') What is the archive/reverse image search link url format?
-						li: a(href='#twofactor-enforcement') How does 2FA enforcement work?
+						li: a(href='#posting') How do I post?
+						li: a(href='#no-bump') What does "no-bump" mean?
+						li: a(href='#post-styling') How does post formatting work?
+						li: a(href='#filetypes') What types of files are allowed?
+						li: a(href='#oekaki') How does the "doodle" feature work?
+						li: a(href='#name-formatting') What's a tripcode? How do I use one?
+						li: a(href='#delete-post') How can I delete a post I made?
 	.table-container.flex-center.mv-5
-		.anchor#whats-an-imageboard
+		.anchor#what-is-marzipan
 		table
 			tr
-				th: a(href='#whats-an-imageboard') What is an imageboard?
+				th: a(href='#what-is-marzipan') What is marzipan?
 			tr
 				td
 					p
-						| An imageboard is a type of discussion board where users share images and text about various topics. 
-					p
-						| The primary difference between imageboards and traditional forums is that anybody can make a post without registering 
-						| an account or providing any personal information. This lowers the barrier to entry, protects user identities and focuses on what is said, rather than who says it. 
+						| Marzipan is a confection made of ground almonds and sugar.
+						br
+						| It also constitutes the majority of the mass of Earth's moon.
 	.table-container.flex-center.mv-5
-		.anchor#name-formatting
+		.anchor#why-no-x-board
 		table
 			tr
-				th: a(href='#name-formatting') Name formatting
+				th: a(href='#why-no-x-board') Why doesn't Marzichan have a board for X?
 			tr
-				td.post-message
-					p When posting, you can format the name field to include a name, tripcode , capcode, any combination of the three including leaving the field completely blank. Instead of a blank name,  "Anonymous" is used, however this depends on board-specific configuration. The optional components are explained below.
-
-					b Format
-					p 
-						| Names should be input like: 
-						input(disabled='true' spellcheck='false' type='text' value='Name##Tripcode## Capcode')
-						| . Tripcode and capcode are optional components. Please note the whitespace before capcodes is significant. 
-					p Valid examples: 
-					ol.mv-0
-						li name
-						li #tripcode
-						li ##tripcode
-						li ## capcode
-						li name#tripcode
-						li name##tripcode
-						li name## capcode
-						li name#tripcode## capcode
-						li name##tripcode## capcode
-						li #tripcode## capcode
-						li ##tripcode## capcode
-						li ##
-					p The last example is considered a blank capcode and can be used as a shortcut to display your role. Additionally, if a user has multiple aplicable roles (e.g. a board owner, but the user is also global staff) capcodes will default to their lowest role. To show the higher role, you must be explicit and precede any capcode with the role name e.g. ## Global Staff or ## Global Staff capcode
-					p Each component can be used in combination or independently. In a post number 9 would look like:
-						-
-							const examplePost = {
-								"date" : new Date("2019-08-02T09:48:44.180Z"),
-								"name" : "name",
-								"board" : "example",
-								"tripcode" : "!!X8NXmAS44=",
-								"capcode" : "##Board Owner capcode",
-								"message" : "Hello, world!",
-								"nomarkup" : "Hello, world!",
-								"thread" : 1,
-								"password" : null,
-								"email" : "",
-								"spoiler" : false,
-								"banmessage" : null,
-								"files" : [ ],
-								"reports" : [ ],
-								"globalreports" : [ ],
-								"quotes" : [ ],
-								"backlinks" : [ ],
-								"postId" : 123
-							}	
-						+post(examplePost)
-					p The name appears bold in the top left, followed by the tripcode in regular weight with a !! prefix, then the capcode in a different color, bold and with a ## prefix. The colours may vary between themes but are generally distinct from each other
-
-					b Name
-					p The name is simply what name you want to be shown alongside your post. Other users can post with the same name so there is nothing preventing impersonation. This is not related to your username (for registered users).
-
-					b Tripcode
-					p A tripcode is a password of sorts, which users can provide in the tripcode component of their name. This tripcode is used in conjunction with a server-known secret to generate a unique* tripcode portion of the name. Long, unique tripcodes can be used as a form of identity. It is important that you keep tripcodes secret if you use them for some form of identity. A compromised tripcode can be used for impersonation and cannot be revoked in any way. Single # before tripcodes will use the traditional (what is now sometimes known as "insecure") tripcode algorithm shared by many imageboard softwares and websites. Double # before tripcodes will use a sha256 hash with server-side secret for a more secure, non-portable tripcode.
-
-					b Capcode
-					p A capcode is a component of the name field only available to authenticated users. This includes admins, global staff, board owners and board staff. If there is no text after the ##, the role will be displayed alone. Leaving a space and putting custom text will be prefixed by the role name. This way, the role is always shown to prevent role impersonation.
+				td
+					p
+						| In order to discourage community fragmentation and keep the site feeling lively, Marzichan is starting with just two boards: a general/random board (
+						a(href='/plaza/') /plaza/
+						| ) and a board for discussing the site itself (
+						a(href='/meta/') /meta/
+						| ). If the site gets enough activity, it could expand to include more boards.
+						br
+						br
+						| If a given topic gets enough posts that you think it would be a good candidate for its own board, or if you have another reason you think a new board would be beneficial, you’re welcome to make a suggestion thread on
+						a(href='/meta/') /meta/
+						| .
+	.table-container.flex-center.mv-5
+		.anchor#questions
+		table
+			tr
+				th: a(href='#questions') The FAQ doesn't answer my question.
+			tr
+				td
+					p
+						| No worries! Just make a post over on 
+						a(href='/meta/') /meta/
+						|  and we'll try to answer.
+	.table-container.flex-center.mv-5
+		.anchor#contact
+		table
+			tr
+				th: a(href='#contact') How can I contact the admin?
+			tr
+				td
+					p
+						| Most of the time, you'll want to make a post on 
+						a(href='/meta/') /meta/
+						| !
+						br
+						| Private inquiries can be sent to 
+						a(href='mailto:marzisoft.dev@gmail.com') marzisoft.dev@gmail.com
+						| .
+	.table-container.flex-center.mv-5
+		.anchor#catalog
+		table
+			tr
+				th: a(href='#catalog') How do I browse through the threads on a board?
+			tr
+				td
+					p There are two ways: the index, and the catalog.
+					b Index
+					p The index lets you go through the board page-by-page, from the most recent replies to the least. Each page shows the OP (original post) and its last couple replies for a few threads. This is a fun way to check out recent activity on the board!
+					b Catalog
+					p The catalog lets you see the OP for every thread on the board, all on a single page. You can sort by different criteria, and easily search the OP text. This is a great way to get a quick view of all the content on the board, find threads that haven't gotten a reply in a while, or check if a thread already exists for a given topic!
+	.table-container.flex-center.mv-5
+		.anchor#track-threads
+		table
+			tr
+				th: a(href='#track-threads') How can I keep track of the threads I'm interested in?
+			tr
+				td
+					p You can use the thread watcher for this!
+					p
+						| If you want to keep track of a thread, click the triangle in the upper-right corner of the OP, and click "Watch". This should bring up the thread watcher. It'll periodically check and indicate if any of your watched threads have new posts, no matter where you are on the site.
+	.table-container.flex-center.mv-5
+		.anchor#notifications
+		table
+			tr
+				th: a(href='#track-threads') How can I get notified when someone replies to me?
+			tr
+				td
+					p
+						| In the [Settings] menu (right-hand side of navbar), check the box for "Notifications".
+						br
+						| Make sure to allow notifications when your browser asks you!
+					p
+						| This will give you a desktop/push notification whenever someone links to your post in their reply, provided you have the page open in your browser.
+					p
+						| Keep in mind that even if someone posts in a thread you made, if they don't link to one of your posts directly, you won't get a notification. Consider using the 
+						a(href='#track-threads') thread watcher
+						|  for that.
+	.table-container.flex-center.mv-5
+		.anchor#dark
+		table
+			tr
+				th: a(href='#dark') How do I use dark mode?
+			tr
+				td
+					p
+						| You can change themes in the [Settings] menu (right-hand side of the navbar).
+						br
+						| Marzichan's dark theme is called "midnight-moon". Enjoy! :)
+	.table-container.flex-center.mv-5
+		.anchor#reports
+		table
+			tr
+				th: a(href='#reports') How do I report a post that breaks the rules?
+			tr
+				td
+					p
+						| We depend on users like you! Please help keep Marzichan safe and fun by reporting a post if you think it may be in violation of the 
+						a(href='/rules.html') site rules
+						| .
+						p To report a post, click the triangle in its upper-right corner and click "Moderate". Then, check the "Global Report" box, enter a reason, and click "Submit".
+						p You also have the option of reporting multiple posts at once by selecting them via their upper-left checkbox, and then using the "Post Actions" menu at the bottom of the page.
+	.table-container.flex-center.mv-5
+		.anchor#posting
+		table
+			tr
+				th: a(href='#posting') How do I post?
+			tr
+				td
+					p To make a new thread, just click the [New Thread] button at the top of the index or catalog!
+					p
+						| To reply to an existing thread, click the [New Reply] button at the top or bottom of the thread page.
+						br
+						| You can also open the reply form by clicking on a post's number, in the upper-right corner. This will insert a link to that post into your message, and open the form if it isn't open already.
+	.table-container.flex-center.mv-5
+		.anchor#no-bump
+		table
+			tr
+				th: a(href='#no-bump') What does "no-bump" mean?
+			tr
+				td
+					p
+						| If you check the no-bump box when replying, your post won't bump the thread to the top of the board.
+						br
+						| This is useful if you're feeling shy and don't want to draw too much attention to your post.
+					p Try to use no-bump sparingly - Marzichan thrives when we all post together!
 	.table-container.flex-center.mv-5
 		.anchor#post-styling
 		table
 			tr
-				th(colspan=2): a(href='#post-styling') Post styling
+				th(colspan=2): a(href='#post-styling') How does post formatting work?
+			tr
+				td(colspan=2)
+					p Marzichan offers many options for formatting the text in your post:
 			tr
 				th Input
 				th Output
@@ -116,10 +193,6 @@ block content
 				td &gt;greentext
 				td
 					span.greentext &gt;greentext
-			tr
-				td &lt;pinktext
-				td
-					span.pinktext &lt;pinktext
 			tr
 				td ==title==
 				td
@@ -145,42 +218,27 @@ block content
 				td
 					span.em italic
 			tr
-				td (((detected)))
-				td
-					span.detected ((( detected )))
-			tr
-				td ##2%9+3
-				td
-					img(src='/file/dice.png' height='16' width='16')
-					span.dice (##2%9+3) = 10
-			tr
 				td https://example.com
 				td: a(href='#!') https://example.com
-			tr
-				td
-					| [Board Rules](https://your.imageboard/a/custompage/rules.html)
-					div
-						small (requires permission + staff only)
-				td: a(href='#!') Board Rules
-			tr
-				td
-					| ![Alt text](https://your.imageboard/file/example.jpg)
-					div
-						small (requires permission)
-				td: img(src='/file/attachment.png' alt='Alt text' title='alt-text' class='embimg' height='32' width='32')
 			tr
 				td &gt;&gt;123
 				td: a(class="quote" href="#!") &gt;&gt;123
 			tr
-				td &gt;&gt;&gt;/b/
-				td: a(class="quote" href="#!") &gt;&gt;&gt;/b/
+				td &gt;&gt;&gt;/meta/
+				td: a(class="quote" href="#!") &gt;&gt;&gt;/meta/
 			tr
-				td &gt;&gt;&gt;/b/123
-				td: a(class="quote" href="#!") &gt;&gt;&gt;/b/123
+				td &gt;&gt;&gt;/meta/123
+				td: a(class="quote" href="#!") &gt;&gt;&gt;/meta/123
 			tr
 				td `inline monospace`
 				td
 					span.mono inline monospace
+			tr
+				td
+					| ##fortune
+				td
+					span.fortune Something fortuitous..?
+					|  One per post.
 			tr
 				td
 					| [code]language
@@ -194,125 +252,144 @@ block content
 				td
 					pre
 						| [code]aa
-						| ∧＿∧
-						| ( ・ω・) Let's try that again.
+						| Let's posting fun
+						| with Shift JIS art!
+						| 　　　　∧＿∧
+						| 　　　 （´∀｀　）
+						| 　 ＿|￣￣||＿）＿
+						| ／旦|――||/／ ／|
+						| |￣￣￣￣￣|￣| . |
+						| |＿＿＿＿＿|三|／
 						| [&#x2F;code]
 				td
 					pre.aa
-						| ∧＿∧
-						| ( ・ω・) Let's try that again.
+						| Let's posting fun
+						| with Shift JIS art!
+						| 　　　　∧＿∧
+						| 　　　 （´∀｀　）
+						| 　 ＿|￣￣||＿）＿
+						| ／旦|――||/／ ／|
+						| |￣￣￣￣￣|￣| . |
+						| |＿＿＿＿＿|三|／
 			tr
 				td(colspan=2)
-					| Supported languages for code block syntax highlighting: 
-					a(rel='nofollow' referrerpolicy='same-origin' target='_blank' href='https://github.com/highlightjs/highlight.js/blob/master/SUPPORTED_LANGUAGES.md') https://github.com/highlightjs/highlight.js/blob/master/SUPPORTED_LANGUAGES.md
-					| . 
-					| If you do not specify a language, a subset of languages is supported for auto-detection: #{codeLanguages.join(', ')}. 
-					| If the language is "plain", an unsupported value, or the auto-detect confidence is too low, highlighting is disabled for the code block. 
-					| If the language is "aa", the font will be adjusted for Japanese Shift JIS art.
+					p
+						| The code tags support 
+						a(rel='nofollow' referrerpolicy='same-origin' target='_blank' href='https://github.com/highlightjs/highlight.js/blob/master/SUPPORTED_LANGUAGES.md') many different languages
+						| . 
+						br
+						| Some languages can be auto-detected if none is specified. Those would be: #{codeLanguages.join(', ')}. 
+					p
+						| If the language is "plain", an unsupported value, or the auto-detect confidence is too low, highlighting is disabled for the code block. 
+						| If the language is "aa", a Shift JIS art-friendly font will be used.
 	.table-container.flex-center.mv-5
-		.anchor#post-info
+		.anchor#filetypes
 		table
 			tr
-				th: a(href='#post-info') What is the file size limit?
+				th: a(href='#filetypes') What types of files are allowed?
 			tr
 				td
-					p Max size of form data per-post is #{postFilesSize}. Because other fields e.g. name, message, etc contribute to this, the maximum size of file uploads will be very slightly smaller than this.
+					p You can upload any of these filetypes:
+					b Images
+					ul
+						li .webp
+						li .png
+						li .jpg
+						li .gif
+						li .apng
+						li .bmp
+					b Video
+					ul
+						li .webm
+						li .mkv
+						li .mp4
+						li .mov
+						li .mpg
+					b Audio
+					ul
+						li .ogg
+						li .flac
+						li .wav
+						li .mp3
+					b Other
+					ul
+						li .txt
+						li .pdf
+						li .tgkr
+					p Additionally, embeds are supported for these sites:
+					ul
+						li YouTube
+					p To embed, just include a link anywhere in your post!
 	.table-container.flex-center.mv-5
-		.anchor#moderation
+		.anchor#oekaki
 		table
 			tr
-				th: a(href='#moderation') How does moderation work?
+				th: a(href='#oekaki') How does the "doodle" feature work?
+			tr
+				td
+					p The doodle section of the post form lets you create and share illustrations without any external tools. You can also let other users play back your illustration in real-time and see how you drew it, like on an oekaki website!
+					p To use it from the post form, simply check/uncheck the "Replayable?" checkbox based on your preference, and then click "Draw". When you're done, click "Finish", and your drawing and its replay file (if enabled) should be ready to upload!
+					p To view the replay for a doodle that's been posted, click the [Replay] button beneath its filename.
+	.table-container.flex-center.mv-5
+		.anchor#name-formatting
+		table
+			tr
+				th: a(href='#name-formatting') What's a tripcode? How do I use one?
 			tr
 				td.post-message
-					b Local vs. Global reports
+					p A tripcode is a way to uniquely identify yourself when posting by entering a secret passphrase.
+					p There are two types of tripcodes, unsalted and salted. Unsalted tripcodes can be used across various sites, so you can have the same identifier on multiple imageboards. But unsalted tripcodes aren't very secure, so it's relatively easy for someone to crack your passphrase. Salted tripcodes are harder to crack, but are unique to each website.
 					p
-						| There exists the concept of "local" and "global" reports. Reporting a post locally will show the post along with reports on the report page for that particular board, and the reports 
-						| may be actioned upon by the board staff. Reporting a post globally will show the post along with reports on the global manage page available only to global staff and may be actioned upon by global staff. 
-						| Global reports should be used to flag posts that violate global rules such as illegal content or spam, in contrast to local reports which are for posts that abide by global rules but break 
-						| board-specific rules (which may be made arbitrarily by board staff). It is also possible to be banned from a board or globally for abuse of the report system.
-					b Batch processing of posts
+						| The most important thing to remember is that 
+						b neither salted nor unsalted tripcodes are truly "secure"! 
+						b.underline You must never, ever use sensitive info (like a real password which you use for other services) as a tripcode passphrase!!
+					br
+					b Usage
 					p
-						| Each post has a checkbox in the top left to select it for moderation actions. Multiple posts may be selected to allow batch processing e.g. reporting multiple offending posts in one request. 
-						| The same is present in moderation interfaces. Some actions for example bans (which are based on IP) may also be handled in batches. Selecting multiple posts and using the ban action will 
-						| apply a single ban for each unique IP of the selected posts.
-					b Time format in moderation interfaces
+						|You can use a tripcode by appending a passphrase to the end of the name field.
+						br
+						| The name (which can be omitted) and tripcode are separated by # for unsalted tripcodes, and ## for salted tripcodes.
+					p For example: 
+						input(disabled='true' spellcheck='false' type='text' value='Name#myunsaltedtripcode')
+						|  or 
+						input(disabled='true' spellcheck='false' type='text' value='Name##mysaltedtripcode')
 					p
-						| Some moderation interfaces, for example the ban duration when moderating posts, or the ban duration for post filtering use a shorthand for times/length. This format supports years, months, weeks, days, hours, minutes and seconds.
-						| An input of "3mo" would mean 3 months and "1y2mo3w4d5h6m7s" would mean 1 year, 2 months, 3 weeks, 4 days, 5 hours, 6 minutes and 7 seconds. Units of time should be in descending order, so "2w1mo" is invalid.
-						| However you may use "6w" for example to input 6 weeks, and are not required to use "1mo2w".
-	.table-container.flex-center.mv-5
-		.anchor#make-a-board
-		table
-			tr
-				th: a(href='#make-a-board') How do I make my own board?
-			tr
-				td
+						b The first character of your passphrase must not be a space!
 					p
-						a(href='/register.html') Register
-						|  an account, then 
-						a(href='/create.html') create a board
-						|. Please avoid making excessive amounts of boards, duplicate or boards similar to an existing one unless you expect that many users will migrate to the new board for whatever reason e.g. tyrannical moderation.
+						| When you post, a tripcode will be generated from your passphrase and shown next to your name.
+						br
+						| Unsalted tripcodes begin with !, and salted tripcodes begin with !!.
+						br
+						| For example, "Name##mysaltedtripcode" will end up looking like this on the post:
+						-
+							const examplePost = {
+								"date" : new Date("2019-08-02T09:48:44.180Z"),
+								"name" : "Name",
+								"board" : "example",
+								"tripcode" : "!!enXPVgEMc=",
+								"capcode" : "",
+								"message" : "Hello, world!",
+								"nomarkup" : "Hello, world!",
+								"thread" : 1,
+								"password" : null,
+								"email" : "",
+								"spoiler" : false,
+								"banmessage" : null,
+								"files" : [ ],
+								"reports" : [ ],
+								"globalreports" : [ ],
+								"quotes" : [ ],
+								"backlinks" : [ ],
+								"postId" : 123
+							}	
+						+post(examplePost)
 	.table-container.flex-center.mv-5
-		.anchor#antispam
+		.anchor#delete-post
 		table
 			tr
-				th: a(href='#antispam') What do the board settings for antispam do?
+				th: a(href='#delete-post') How can I edit or delete a post I made?
 			tr
-				td
-					p Lock Mode: Choose to lock posting new threads or all posts.
-					p Captcha Mode: Choose to enforce captchas for posting threads or all posts.
-					p PPH Trigger Threshold: Trigger an action after a certain amount of PPH.
-					p PPH Trigger Action: The action to trigger.
-					p TPH Trigger Threshold: Trigger an action after a certain amount of TPH.
-					p TPH Trigger Action: The action to trigger.
-					p Trigger Reset Lock Mode: If a trigger threshold was reached, reset the lock mode to this at the end of the hour.
-					p Trigger Reset Captcha Mode: If a trigger threshold was reached, reset the captcha mode to this at the end of the hour.
-					p Early 404: When a new thread is posted, delete any existing threads with less than #{early404Replies} replies beyond the first 1/#{early404Fraction} of threads.
-					p Disable anonymizer file posting: Prevent users posting images through anonymizers such as Tor hidden services, lokinet SNApps or i2p eepsites.
-					p Blocked Countries: Block country codes (based on geo Ip data) from posting.
-	.table-container.flex-center.mv-5
-		.anchor#filters
-		table
-			tr
-				th: a(href='#filters') What do the filter options do?
-			tr
-				td
-					p Filters: Newline separated list of words or phrases to match in posts. Checks name, message, email, subject, and filenames.
-					p Strict Filtering: More aggressively match filters, by normalising the input compared against the filters.
-					p Filter Mode: What to do when a post matches a filter.
-					p Block/Ban Message: The message returned if a post is blocked, or the ban reason if a poster is banned.
-					p Filter Auto Ban Duration: How long to automatically ban for when filter mode is set to ban. Input the duration in time format described in the #[a(href='#moderation') moderation section].
-					p Filter Bans Appealable: Whether or not a ban given by this filter can be appealed. This can be useful if the ban hits an innocent user by mistake.
-					p Replace Text: Text to substitute in for a replace filter. This is how word filters are added.
-	.table-container.flex-center.mv-5
-		.anchor#archive-reverse-url-format
-		table
-			tr
-				th: a(href='#archive-reverse-url-format') What is the archive/reverse image search link url format?
-			tr
-				td
-					p
-						| Put a link with 
-						span.mono %s
-						|  where the url of the page/file should go for reverse image search or archive links. For example 
-						span.mono https://tineye.com/search?url=#[span.bold %s]
-						| .
-	.table-container.flex-center.mv-5
-		.anchor#twofactor-enforcement
-		table
-			tr
-				th: a(href='#twofactor-enforcement') How does 2FA enforcement work?
-			tr
-				td
-					p There are two options included in global management settings that allow admins to increase security by enforcing the use of 2FA for all accounts and/or actions.
-					p Force Account 2FA: Forces all accounts to have 2FA, or else the user is redirected to the 2FA setup page.
-					p Force Action 2FA: If an account has 2FA enabled, the 2FA code must be input for: changing global settings, changing board settings, resigning from a staff position, deleting accounts, deleting your own account, or deleting a board.
-					p The granularity of what actions require 2FA will be expanded and customisable in a future release.
-	.table-container.flex-center.mv-5
-		.anchor#contact
-		table
-			tr
-				th: a(href='#contact') How can I contact the administration?
-			tr
-				td
-					p Example						
+				td.post-message
+					p If you click the triangle in the upper-right corner of a post, then click "Moderate", it'll bring up a menu where you can make certain changes to posts that you've made. You can't edit the text of your post, but you can remove the attached file, spoiler the file, or delete the whole post.
+					p To do any of these things, you'll need the same password you entered on the post form when you originally made the post, so if you switch devices a lot, you may want to make sure to use a custom password instead of the automatically generated one.
+					p If you'd like to act on multiple posts at once, you can select all the posts using the checkbox in their upper-left corner, and then click the "Show Post Actions" button at the bottom of the page instead.
