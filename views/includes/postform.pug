@@ -63,11 +63,11 @@ section.form-wrapper.flex-center
 							| Spoiler
 			if board.settings.enableTegaki && board.settings.allowedFileTypes.image === true
 				section.row.jsonly
-					.label #{__('Tegaki')} 
+					.label #{__('Doodle')}
 					input.dummy-link.tegaki-button(type='button', value=__('Draw'))
 					if board.settings.allowedFileTypes.other === true
 						label.noselect.postform-style.ph-5.ml-1.fh
-							input(type='checkbox' name='tegakireplay')
+							input(type='checkbox' name='tegakireplay' checked)
 							| #{__('Replayable?')}
 		if board.settings.userPostSpoiler || board.settings.userPostDelete || board.settings.userPostUnlink || modview
 			section.row
