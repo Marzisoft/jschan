@@ -67,3 +67,8 @@ body {
 .you::after {
 	font-weight: normal;
 }
+
+/* don't hide cursor on spoilers, that's weird */
+.spoiler {
+	cursor: auto;
+}
