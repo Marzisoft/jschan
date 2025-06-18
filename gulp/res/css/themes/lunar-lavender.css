@@ -27,6 +27,10 @@ th a:hover, a.label:hover , .label a:hover {
 	color: #2b0137 !important;
 }
 
+.fortune {
+	color: #930bdb;
+}
+
 :root {
 	--background-top: #e0fffd;
 	--background-rest: #f3edff;

@@ -18,6 +18,10 @@ a.button {
 	color: white;
 }
 
+.fortune {
+	color: #cb65e8;
+}
+
 :root {
 	--background-top: #353e57;
 	--background-rest: #1f1b29;

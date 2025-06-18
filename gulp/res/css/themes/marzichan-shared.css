@@ -68,6 +68,10 @@ body {
 	font-weight: normal;
 }
 
+.fortune {
+	font-weight: 700;
+}
+
 /* don't hide cursor on spoilers, that's weird */
 .spoiler {
 	cursor: auto;
