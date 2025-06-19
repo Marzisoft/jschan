@@ -60,44 +60,52 @@ gulp.task('generate-favicon', function(done) {
 		dest: 'gulp/res/icons',
 		iconsPath: '/file/',
 		design: {
-			'desktop': {
-				'darkIconTransformation': {
-					'type': 'none',
-					'backgroundColor': '#ffffff',
-					'backgroundRadius': 0.7,
-					'imageScale': 0.7,
-					'brightness': 1
-				},
-				'darkIconType': 'regular',
-				'regularIconTransformation': {
-					'type': 'none',
-					'backgroundColor': '#ffffff',
-					'backgroundRadius': 0.7,
-					'imageScale': 0.7,
-					'brightness': 1
+			ios: {
+				pictureAspect: 'backgroundAndMargin',
+				backgroundColor: '#ffffff',
+				margin: '14%',
+				assets: {
+					ios6AndPriorIcons: false,
+					ios7AndLaterIcons: false,
+					precomposedIcons: false,
+					declareOnlyDefaultIcon: true
 				}
 			},
-			'touch': {
-				'transformation': {
-					'type': 'none',
-					'backgroundColor': '#ffffff',
-					'backgroundRadius': 0,
-					'imageScale': 0.7,
-					'brightness': 1
-				},
+			desktopBrowser: {
+				design: 'raw'
 			},
-			'webAppManifest': {
-				'transformation': {
-					'type': 'background',
-					'backgroundColor': '#ffffff',
-					'backgroundRadius': 0,
-					'imageScale': 0.7,
-					'brightness': 1
+			windows: {
+				pictureAspect: 'whiteSilhouette',
+				backgroundColor: '#da532c',
+				onConflict: 'override',
+				assets: {
+					windows80Ie10Tile: false,
+					windows10Ie11EdgeTiles: {
+						small: false,
+						medium: true,
+						big: false,
+						rectangle: false
+					}
+				}
+			},
+			androidChrome: {
+				pictureAspect: 'shadow',
+				themeColor: '#ffffff',
+				manifest: {
+					display: 'standalone',
+					orientation: 'notSet',
+					onConflict: 'override',
+					declared: true
 				},
-				'name': '',
-				'shortname': '',
-				'backgroundColor': '#ffffff',
-				'themeColor': '#ffffff'
+				assets: {
+					legacyIcon: false,
+					lowResolutionIcons: false
+				}
+			},
+			safariPinnedTab: {
+				pictureAspect: 'blackAndWhite',
+				threshold: 30,
+				themeColor: '#990000'
 			}
 		},
 		settings: {
