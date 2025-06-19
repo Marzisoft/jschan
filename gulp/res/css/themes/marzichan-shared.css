@@ -63,6 +63,11 @@ body {
 	font-family: "Inter", "M PLUS 1p", sans-serif;
 }
 
+/* fix thread watcher alignment with fonts */
+.watched-thread {
+	align-items: center;
+}
+
 /* less spindly (You)s */
 .you::after {
 	font-weight: normal;

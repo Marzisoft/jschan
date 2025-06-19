@@ -1310,7 +1310,6 @@ input[type="file"] {
 	/*justify-content: space-between;*/
 	padding: 3px;
 	box-sizing: border-box;
-	align-items: center;
 }
 
 .watched-thread a {
