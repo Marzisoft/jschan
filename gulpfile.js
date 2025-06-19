@@ -60,46 +60,56 @@ gulp.task('generate-favicon', function(done) {
 		dest: 'gulp/res/icons',
 		iconsPath: '/file/',
 		design: {
-			"desktop": {
-				"darkIconTransformation": {
-					"type": "none",
-					"backgroundColor": "#ffffff",
-					"backgroundRadius": 0.7,
-					"imageScale": 0.7,
-					"brightness": 1
+			'desktop': {
+				'darkIconTransformation': {
+					'type': 'none',
+					'backgroundColor': '#ffffff',
+					'backgroundRadius': 0.7,
+					'imageScale': 0.7,
+					'brightness': 1
 				},
-				"darkIconType": "regular",
-				"regularIconTransformation": {
-					"type": "none",
-					"backgroundColor": "#ffffff",
-					"backgroundRadius": 0.7,
-					"imageScale": 0.7,
-					"brightness": 1
+				'darkIconType': 'regular',
+				'regularIconTransformation': {
+					'type': 'none',
+					'backgroundColor': '#ffffff',
+					'backgroundRadius': 0.7,
+					'imageScale': 0.7,
+					'brightness': 1
 				}
 			},
-			"touch": {
-				"transformation": {
-					"type": "none",
-					"backgroundColor": "#ffffff",
-					"backgroundRadius": 0,
-					"imageScale": 0.7,
-					"brightness": 1
+			'touch': {
+				'transformation': {
+					'type': 'none',
+					'backgroundColor': '#ffffff',
+					'backgroundRadius': 0,
+					'imageScale': 0.7,
+					'brightness': 1
 				},
-				"appTitle": null
 			},
-			"webAppManifest": {
-				"transformation": {
-					"type": "none",
-					"backgroundColor": "#ffffff",
-					"backgroundRadius": 0,
-					"imageScale": 0.7,
-					"brightness": 1
+			'webAppManifest': {
+				'transformation': {
+					'type': 'background',
+					'backgroundColor': '#ffffff',
+					'backgroundRadius': 0,
+					'imageScale': 0.7,
+					'brightness': 1
 				},
-				"name": "MyWebSite",
-				"shortName": "MySite",
-				"backgroundColor": "#ffffff",
-				"themeColor": "#ffffff"
+				'name': '',
+				'shortname': '',
+				'backgroundColor': '#ffffff',
+				'themeColor': '#ffffff'
 			}
+		},
+		settings: {
+			scalingAlgorithm: 'Lanczos',
+			errorOnImageTooSmall: false,
+			readmeFile: false,
+			htmlCodeFile: true,
+			usePathAsIs: false
+		},
+		versioning: {
+			paramName: 'v',
+			paramValue: commit
 		},
 		markupFile: FAVICON_DATA_FILE
 	}, function() {
