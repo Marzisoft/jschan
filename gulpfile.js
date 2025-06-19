@@ -122,6 +122,11 @@ gulp.task('generate-favicon', function(done) {
 		markupFile: FAVICON_DATA_FILE
 	}, function() {
 		fs.writeFileSync('gulp/res/icons/html_code.html', JSON.parse(fs.readFileSync(FAVICON_DATA_FILE)).favicon.html_code, 'utf8');
+		// Replace favicon.ico with custom one if provided,
+		// acts as a workaround for RFG's broken scaling
+		if (fs.existsSync('gulp/res/icons/master.ico')) {
+			fs.copyFile('gulp/res/icons/master.ico', 'gulp/res/icons/favicon.ico');
+		}
 		done();
 	});
 });
