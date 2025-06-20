@@ -60,7 +60,7 @@ main {
 }
 
 body {
-	font-family: "Inter", "M PLUS 1p", sans-serif;
+	font-family: "Inter", "M PLUS 1p", "Noto Sans Symbols", "Noto Emoji", sans-serif;
 }
 
 /* fix thread watcher alignment with fonts */
