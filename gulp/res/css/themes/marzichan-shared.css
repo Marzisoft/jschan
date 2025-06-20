@@ -63,6 +63,10 @@ body {
 	font-family: "Inter", "M PLUS 1p", "Noto Emoji", "Noto Sans Symbols", sans-serif;
 }
 
+input, select, textarea {
+	font-family: "Inter", "M PLUS 1p", "Noto Emoji", "Noto Sans Symbols", sans-serif;
+}
+
 /* fix thread watcher alignment with fonts */
 .watched-thread {
 	align-items: center;
