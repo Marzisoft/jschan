@@ -35,10 +35,13 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 					| 
 					if !post.thread
 						include ../includes/posticons.pug
+					if (post.email === 'sage')
+						span.post-subject ↓
+						| 
 					if post.subject
 						span.post-subject #{post.subject}
 						| 
-					if post.email
+					if post.email && (post.email !== 'sage')
 						a.post-name(href=`mailto:${post.email}`) #{post.name}
 					else 
 						span.post-name #{post.name}
