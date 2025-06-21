@@ -158,6 +158,16 @@ module.exports = async (req, res) => {
 				}
 			}
 		}
+
+		//an old trick to catch a certain variety of spammer
+		const linkShortenerRegex = /https?:\/\/[a-zA-Z0-9\-]{1,12}\.[a-zA-Z]{2,5}\/[a-zA-Z0-9]{3,15}(?:\s|$)/;
+		if (strictCombinedString.match(linkShortenerRegex) && (res.locals.numFiles > 0)) {
+			return dynamicResponse(req, res, 418, 'message', {
+				'title': __('Suspicious post detected'),
+				'message': __('Your post looks too suspicious. Sorry!'),
+				'redirect': redirect
+			});
+		}
 	}
 
 	//for r9k messages. usually i wouldnt process these if its not enabled e.g. flags and IDs but in this case I think its necessary
