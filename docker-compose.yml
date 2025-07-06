@@ -37,6 +37,16 @@ services:
       - redis
       - mongodb
 
+  notifier:
+    build:
+      context: .
+      dockerfile: ./docker/notifier/Dockerfile
+    env_file: ./docker/secrets.env
+    volumes:
+      - ./docker/static:/opt/jschan/static/
+    depends_on:
+      - nginx
+
 volumes:
   db-data:
 
