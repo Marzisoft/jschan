@@ -23,6 +23,11 @@ services:
       - ./docker/static/:/opt/jschan/static/
     depends_on:
       - jschan
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost/login.html"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
 
   jschan:
     build:
@@ -45,7 +50,8 @@ services:
     volumes:
       - ./docker/static:/opt/jschan/static/
     depends_on:
-      - nginx
+      nginx:
+        condition: service_healthy
 
 volumes:
   db-data:
