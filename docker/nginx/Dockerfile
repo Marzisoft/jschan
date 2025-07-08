@@ -69,6 +69,7 @@ RUN set -ex \
     && echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env
 
 FROM nginx:mainline
+
 COPY --from=builder /tmp/packages /tmp/packages
 RUN set -ex \
     && apt update \
@@ -94,6 +95,13 @@ COPY ./docker/nginx/jschan.conf /etc/nginx/conf.d/
 COPY ./configs/nginx/snippets/ /etc/nginx/snippets/
 
 COPY ./docker/nginx/nginx.sh /opt/jschan/nginx.sh
+
+#make passwords file from secrets.env var
+#gross but there aren't many nicer ways to access these vars
+COPY ./docker/secrets.env /opt/jschan/secrets.env
+COPY ./docker/nginx/make_secrets.sh /opt/jschan/make_secrets.sh
+RUN chmod +x /opt/jschan/secrets.env /opt/jschan/make_secrets.sh \
+	&& /opt/jschan/make_secrets.sh
 
 WORKDIR /opt/jschan
 
