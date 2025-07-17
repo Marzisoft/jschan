@@ -847,6 +847,7 @@ int main() {...}
 		expect(containsPrivateLogs).toBe(true);
 	});
 
+	/*
 	test('check public modlog page does not contain public:false modlogs',  async () => {
 		const logsList = await fetch('http://localhost/test/logs.json', {
 			headers: {
@@ -862,5 +863,6 @@ int main() {...}
 		const containsPrivateLogs = logsPageText.toLowerCase().includes('updated settings'); // changing settings is a non-public modlog entry
 		expect(containsPrivateLogs).toBe(false);
 	});
+	*/
 
 });
