@@ -16,6 +16,7 @@ const { createHash, randomBytes } = require('crypto')
 	, messageHandler = require(__dirname+'/../../lib/post/message.js')
 	, moveUpload = require(__dirname+'/../../lib/file/moveupload.js')
 	, mimeTypes = require(__dirname+'/../../lib/file/mimetypes.js')
+	, stripExif = require(__dirname+'/../../lib/file/stripexif.js')
 	, imageThumbnail = require(__dirname+'/../../lib/file/image/imagethumbnail.js')
 	, getDimensions = require(__dirname+'/../../lib/file/image/getdimensions.js')
 	, videoThumbnail = require(__dirname+'/../../lib/file/video/videothumbnail.js')
@@ -247,6 +248,9 @@ module.exports = async (req, res) => {
 		for (let i = 0; i < res.locals.numFiles; i++) {
 			const file = req.files.file[i];
 			file.filename = file.sha256 + file.extension;
+
+			//strip exif data
+			await stripExif(file);
 
 			//get metadata
 			let processedFile = {
