@@ -95,7 +95,7 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 							- continue; //Skip showing tegaki replay alone if is includes the image
 						.post-file
 							- const type = file.mimetype.split('/')[0]
-							span.post-file-info
+							span.post-file-info(class=(post.spoiler || file.spoiler || file.attachment || type === 'audio' ? 'post-file-info-small' : ''))
 								span
 									a.filename(href='/file/'+file.filename title='Download '+file.originalFilename download=file.originalFilename) #{post.spoiler || file.spoiler ? __('Spoiler File') : file.originalFilename}
 								br

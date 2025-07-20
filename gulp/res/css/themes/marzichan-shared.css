@@ -1,4 +1,31 @@
 /* marzichan shared */
+:root {
+	--spoiler-img: url('/css/themes/assets/marzichan-spoiler.png');
+	--attachment-img: url('/css/themes/assets/marzichan-attachment.png');
+	--audio-img: url('/css/themes/assets/marzichan-attachment.png');
+}
+
+/* make special-case thumbnails less HUGE */
+.post-file-src .spoilerimg, .post-file-src .attachmentimg, .post-file-src .audioimg {
+	max-width: 120px;
+	max-height: 120px;
+}
+/* limit file info text to match */
+.post-file-info-small {
+	max-width: 160px!important;
+}
+
+/* same thing, but even smaller on mobile */
+@media only screen and (max-width: 600px) {
+	.post-file-src .spoilerimg, .post-file-src .attachmentimg, .post-file-src .audioimg {
+		max-width: 100px;
+		max-height: 100px;
+	}
+	.post-file-info-small {
+		max-width: 135px!important;
+	}
+}
+
 .nav-item {
 	line-height: 2em;
 }
