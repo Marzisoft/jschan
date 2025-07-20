@@ -46,6 +46,10 @@ main {
 		border-bottom: none;
 	}
 
+	.anchor:target + .post-container .post-info, .post-container.highlighted .post-info, .post-container.hoverhighlighted .post-info {
+		border-bottom: none;
+	}
+
 	/* make edges of post form visible on mobile */
 	#postform {
 		width: 97%;
