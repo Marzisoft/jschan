@@ -11,8 +11,8 @@
 	max-height: 120px;
 }
 /* limit file info text to match */
-.post-file-info-small {
-	max-width: 160px!important;
+.post-file-info.post-file-info-small {
+	max-width: 160px;
 }
 
 /* same thing, but even smaller on mobile */
@@ -21,8 +21,8 @@
 		max-width: 100px;
 		max-height: 100px;
 	}
-	.post-file-info-small {
-		max-width: 135px!important;
+	.post-file-info.post-file-info-small {
+		max-width: 135px;
 	}
 }
 
