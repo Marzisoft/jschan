@@ -5,6 +5,38 @@
 	--audio-img: url('/css/themes/assets/marzichan-attachment.png');
 }
 
+/* replace the ugly post menu with our own nicer one */
+.postmenu {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	cursor: pointer;
+	width: 1em;
+	height: 1em;
+	color: var(--font-color);
+	border: none;
+	background: 0 0;
+	position: relative;
+	top: 2px;
+	font-size: 10pt;
+	vertical-align: top;
+	margin-left: 3px;
+}
+.postmenu-icon::after {
+	content: "▶";
+	margin-left: -1em;
+	pointer-events: none;
+}
+@media only screen and (max-width: 600px) {
+	.postmenu-icon {
+		float: right;
+		line-height: 1.2em;
+	}
+	.postmenu {
+		float: none;
+	}
+}
+
 /* make special-case thumbnails less HUGE */
 .post-file-src .spoilerimg, .post-file-src .attachmentimg, .post-file-src .audioimg {
 	max-width: 120px;

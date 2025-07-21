@@ -68,25 +68,26 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 				if !post.thread && (truncate || manage || globalmanage)
 					|  
 					span.noselect: a(href=`${postURL}`) [#{__('Open')}]
-				select.jsonly.postmenu
-					option(value='single') #{__('Hide')}
-					if post.userId
-						option(value='fid') #{__('Filter ID')}
-					if post.name
-						option(value='fname') #{__('Filter Name')}
-					if post.tripcode
-						option(value='ftrip') #{__('Filter Tripcode')}
-					if post.subject
-						option(value='fsub') #{__('Filter Subject')}
-					if post.country && post.country.code
-						option(value='fflag') #{__('Filter Flag')}
-					if !overboard && !ban
-						option(value='moderate') #{__('Moderate')}
-					if !ban && (modview || manage || globalmanage)
-						option(value='edit') #{__('Edit')}
-					if !post.thread
-						option(value='watch') #{__('Watch')}
-						option(value='playlist') #{__('Playlist')}
+				span.postmenu-icon
+					select.jsonly.postmenu
+						option(value='single') #{__('Hide')}
+						if post.userId
+							option(value='fid') #{__('Filter ID')}
+						if post.name
+							option(value='fname') #{__('Filter Name')}
+						if post.tripcode
+							option(value='ftrip') #{__('Filter Tripcode')}
+						if post.subject
+							option(value='fsub') #{__('Filter Subject')}
+						if post.country && post.country.code
+							option(value='fflag') #{__('Filter Flag')}
+						if !overboard && !ban
+							option(value='moderate') #{__('Moderate')}
+						if !ban && (modview || manage || globalmanage)
+							option(value='edit') #{__('Edit')}
+						if !post.thread
+							option(value='watch') #{__('Watch')}
+							option(value='playlist') #{__('Playlist')}
 		.post-data
 			if post.files.length > 0
 				.post-files(class=(post.files.length > 1 ? 'fn' : ''))
