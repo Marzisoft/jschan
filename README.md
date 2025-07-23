@@ -1,3 +1,21 @@
+This is a fork of jschan that will run on https://marzichan.org.  
+Aside from many changes to theming, layout, and branding, it contains some functional tweaks, such as:
+ - Improved docker support; meant to be run via docker in production
+ - Tegaki replays that are paired with an image don't count towards the files-per-post limit
+ - Adds a override for the legacy favicon (.ico), to get around scaling issues with generate-favicon
+   - To use, place the desired legacy favicon in `gulp/res/icons/master.ico`
+ - Adds a special filter to reduce certain types of spam
+ - Adds an integrated [notifier system](https://github.com/Marzisoft/globalafk) which generates password-gated Atom feeds and sends Discord messages
+ - Adds support for regex-based filters (Marzichan does not have user-created imageboards, so ReDoS is not a concern)
+   - Format filter text as `r!/foo/gi` to use, where `foo` is the expression and `gi` are modifiers/"flags"
+ - Adds Exif data stripping for files uploaded with posts
+ - Replaces per-board banners with a global banner system, including the ability to add authorship/source info as tooltips
+   - Currently no site UI for this; it's driven entirely by image and txt files added to `static/global-banner`
+
+Included below is the upstream README.
+
+---
+
 # jschan
 
 Anonymous imageboard software that doesn't suck.
