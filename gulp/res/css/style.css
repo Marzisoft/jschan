@@ -983,10 +983,17 @@ input:invalid, textarea:invalid {
 
 .board-banner {
 	margin: 10px;
-	max-width: 100%;
+	max-width: 300px;
 	border: 1px solid var(--post-outline-color);
 	min-width: 300px;
 	min-height: 100px;
+	max-width: 300px;
+	max-height: 100px;
+}
+
+.board-banner img {
+	max-width: 300px;
+	max-height: 100px;
 }
 
 .asset-check {
