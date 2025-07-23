@@ -1,0 +1,23 @@
+extends ../layout.pug
+
+block head
+	title #{__('Banners')}
+
+block content
+	h1.board-title #{__('Banners')}
+	br
+	include ../includes/stickynav.pug
+	div.flexcenter
+		p.text-center
+			| #{__('Hover over each banner (or long press on mobile) for contributor and source info, if applicable.')}
+			br
+			| #{__('Many are contributed by our wonderful users!')}
+	hr(size=1)
+	if globalBanners.length > 0
+		.catalog
+			each banner in globalBanners
+				img.board-banner(src=`/global-banner/${banner.img}` title=`${banner.info || ''}` loading='lazy')
+	else
+		p #{__('Site has no global banners.')}
+	include ../includes/stickynav.pug
+	hr(size=1)

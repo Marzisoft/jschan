@@ -14,6 +14,7 @@ module.exports = {
 	board: require(__dirname+'/board.js'),
 	catalog: require(__dirname+'/catalog.js'),
 	banners: require(__dirname+'/banners.js'),
+	globalBanners: require(__dirname+'/globalbanners.js'),
 	boardSettings: require(__dirname+'/boardsettings.js'),
 	globalSettings: require(__dirname+'/globalsettings.js'),
 	customPage: require(__dirname+'/custompage.js'),
