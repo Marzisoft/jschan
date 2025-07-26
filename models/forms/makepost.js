@@ -161,7 +161,7 @@ module.exports = async (req, res) => {
 		}
 
 		//an old trick to catch a certain variety of spammer
-		const linkShortenerRegex = /https?:\/\/[a-zA-Z0-9\-]{1,12}\.[a-zA-Z]{2,5}\/[a-zA-Z0-9]{3,15}(?:\s|$)/;
+		const linkShortenerRegex = /https?:\/\/[a-zA-Z0-9-]{1,12}\.[a-zA-Z]{2,5}\/[a-zA-Z0-9]{3,15}(?:\s|$)/;
 		if (strictCombinedString.match(linkShortenerRegex) && (res.locals.numFiles > 0)) {
 			return dynamicResponse(req, res, 418, 'message', {
 				'title': __('Suspicious post detected'),
