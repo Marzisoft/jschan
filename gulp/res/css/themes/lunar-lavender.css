@@ -31,6 +31,10 @@ th a:hover, a.label:hover , .label a:hover {
 	color: #930bdb;
 }
 
+.ban, .br {
+	color: #9d0034;
+}
+
 :root {
 	--background-top: #e0fffd;
 	--background-rest: #f3edff;

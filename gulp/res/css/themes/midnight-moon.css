@@ -22,6 +22,10 @@ a.button {
 	color: #cb65e8;
 }
 
+.ban, .br {
+	color: #ff665e;
+}
+
 :root {
 	--background-top: #353e57;
 	--background-rest: #1f1b29;
