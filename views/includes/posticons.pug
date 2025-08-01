@@ -3,7 +3,7 @@ if post.sticky || post.bumplocked || post.locked || post.cyclic
 		if post.sticky
 			img(src='/file/sticky.png' height='14' width='14' title=`${__('Sticky')} (${post.sticky})`)
 			| 
-		if post.bumplocked
+		if post.bumplocked && modview
 			img(src='/file/bumplock.png' height='14' width='14' title=__('Bumplocked'))
 			| 
 		if post.locked
