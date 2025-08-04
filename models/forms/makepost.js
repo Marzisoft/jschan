@@ -161,13 +161,31 @@ module.exports = async (req, res) => {
 		}
 
 		//an old trick to catch a certain variety of spammer
-		const linkShortenerRegex = /https?:\/\/[a-zA-Z0-9-]{1,12}\.[a-zA-Z]{2,5}\/[a-zA-Z0-9]{3,15}(?:\s|$)/;
-		if (strictCombinedString.match(linkShortenerRegex) && (res.locals.numFiles > 0)) {
-			return dynamicResponse(req, res, 418, 'message', {
-				'title': __('Suspicious post detected'),
-				'message': __('Your post looks too suspicious. Sorry!'),
-				'redirect': redirect
-			});
+		const linkShortenerRegex = /https?:\/\/[a-zA-Z0-9-]{1,12}\.[a-zA-Z]{2,5}\/[a-zA-Z0-9]{3,15}(?=$|[^a-zA-Z0-9-])/g;
+		// with some exceptions
+		const whitelistedUrls = [
+			/https?:\/\/youtu.be\//g
+		];
+
+		if (res.locals.numFiles > 0) {
+			const suspiciousUrls = strictCombinedString.matchAll(linkShortenerRegex);
+			for (const url of suspiciousUrls) {
+				// check against whitelist
+				let suspicious = true;
+				for (const pattern of whitelistedUrls) {
+					if (url[0].match(pattern)) {
+						suspicious = false;
+						break;
+					}
+				}
+				if (suspicious) {
+					return dynamicResponse(req, res, 418, 'message', {
+						'title': __('Suspicious post detected'),
+						'message': __('Your post looks too suspicious. Sorry!'),
+						'redirect': redirect
+					});
+				}
+			}
 		}
 	}
 
