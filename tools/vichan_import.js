@@ -7,7 +7,7 @@
  *
  * Imports posts from a vichan database.
  * This is a kind of hacky tool; I only developed it far enough to meet
- * Marzichan's needs to migrating to jschan. However, it should be a pretty
+ * Marzichan's needs for migrating to jschan. However, it should be a pretty
  * solid starting point even if it doesn't do everything you need out of the box.
  * For example, this script doesn't handle flags (country, custom, etc) at all.
  *
@@ -18,6 +18,7 @@
  * To use, you'll first need to run "npm install mysql2".
  * Again, BACK UP YOUR DATABASES AND FILES BEFORE USING THIS!
  * Then, edit the settings below to your needs and run.
+ * Do not interrupt while running. If you do, restore backups.
  * You'll probably need to run "gulp html" afterwards.
  */
 
@@ -38,10 +39,19 @@ const filesLocation = './vichan-files';
 const capcodePrefix = '★ ';
 
 (async () => {
-	const Mongo = require(__dirname+'/../db/db.js')
+	const mysql = require('mysql2/promise')
+		, Mongo = require(__dirname+'/../db/db.js')
 		, config = require(__dirname+'/../lib/misc/config.js');
 
-	const vichanPosts = await getVichanPosts();
+	// connect to vichan db
+	let vichanConnection = await mysql.createConnection({
+		host,
+		user,
+		password,
+		database
+	});
+
+	const vichanPosts = await getVichanPosts(vichanConnection);
 
 	// connect to jschan db
 	console.log('CONNECTING TO MONGODB');
@@ -50,26 +60,43 @@ const capcodePrefix = '★ ';
 	await config.load();
 	const db = Mongo.db.collection('posts');
 
+	// import all the posts
 	for (const post of vichanPosts) {
 		await makeJschanPost(db, post);
 	}
 
-	console.log(`Imported ${vichanPosts.length} posts from ${boards.length} boards`);
+	// set the next post number to match what was going to come next on vichan,
+	// and set the lastPostTimestamp correctly
+	const boardsDb = Mongo.db.collection('boards');
+	for (const board of boards) {
+		const result = await vichanConnection.query(`SELECT auto_increment FROM information_schema.tables WHERE table_name="posts_${board}"`);
 
+		const nextId = result[0][0].auto_increment;
+		await boardsDb.updateOne({
+			'_id': board
+		},{
+			'$set': {
+				'sequence_value': nextId,
+				'lastPostTimestamp': getLastPostTimestamp(vichanPosts,  board)
+			}
+		});
+	}
+
+	console.log(`Imported ${vichanPosts.length} posts from ${boards.length} boards`);
 	process.exit();
 })();
 
-async function getVichanPosts() {
-	const mysql = require('mysql2/promise');
+function getLastPostTimestamp(vichanPosts, board) {
+	for (let i = vichanPosts.length - 1; i >= 0; i--) {
+		const post = vichanPosts[i];
+		if (post.board === board) {
+			return new Date(post.time * 1000);
+		}
+	}
+}
 
+async function getVichanPosts(connection) {
 	// first, retrieve all posts from vichan
-	let connection = await mysql.createConnection({
-		host,
-		user,
-		password,
-		database
-	});
-
 	const vichanPosts = [];
 	for (const board of boards) {
 		const result = await (connection.query(`SELECT * FROM posts_${board}`));
@@ -86,10 +113,15 @@ async function getVichanPosts() {
 }
 
 async function makeJschanPost(db, post) {
-	const { createHash } = require('crypto')
+	const { createHash, randomBytes } = require('crypto')
+		, randomBytesAsync = require('util').promisify(randomBytes)
 		, { postPasswordSecret } = require(__dirname+'/../configs/secrets.js')
-		, { randomBytes } = require('crypto')
-		, randomBytesAsync = require('util').promisify(randomBytes);
+		, Permission = require(__dirname+'/../lib/permission/permission.js')
+		, roleManager = require(__dirname+'/../lib/permission/rolemanager.js')
+		, { markdown } = require(__dirname+'/../lib/post/markdown/markdown.js')
+		, quoteHandler = require(__dirname+'/../lib/post/quotes.js');
+
+	console.log(`Importing /${post.board}/${post.id} ...`);
 
 	const jschanPost = {};
 
@@ -114,7 +146,7 @@ async function makeJschanPost(db, post) {
 	jschanPost.reports = [];
 	jschanPost.globalreports = [];
 
-	jschanPost.files = [];
+	jschanPost.files = await makeJschanFiles(post);
 
 	// set thread-only properties
 	if (post.thread === null) {
@@ -136,11 +168,6 @@ async function makeJschanPost(db, post) {
 	const banMessage = jschanPost.nomarkup.match(banMessageRegex);
 	jschanPost.banmessage = banMessage?.[1] || null;
 	jschanPost.nomarkup = jschanPost.nomarkup.replace(banMessageRegex, '');
-
-	const Permission = require(__dirname+'/../lib/permission/permission.js');
-	const roleManager = require(__dirname+'/../lib/permission/rolemanager.js');
-	const { markdown } = require(__dirname+'/../lib/post/markdown/markdown.js');
-	const quoteHandler = require(__dirname+'/../lib/post/quotes.js');
 
 	await roleManager.load();
 	const permissions = new Permission(roleManager.roles.ANON.base64);
@@ -165,7 +192,6 @@ async function makeJschanPost(db, post) {
 
 	// write post to db
 	const res = await db.insertOne(jschanPost);
-	console.log(JSON.stringify(res, null, 2));
 
 	// set backlinks on quoted posts
 	if (jschanPost.thread && jschanPost.quotes.length > 0) {
@@ -196,7 +222,172 @@ async function makeJschanPost(db, post) {
 		});
 	}
 
-	console.log(JSON.stringify(jschanPost, null, 2));
+}
+
+// the messiest part of this script by far...
+// honestly the rest of the script is pretty clean compared to this one section.
+// probably broken in lots of specific and weird ways because I didn't polish this;
+// it contains lots of logic partially ripped from makepost.js
+async function makeJschanFiles(post) {
+	const fs = require('fs')
+		, { pipeline } = require('stream/promises')
+		, crypto = require('crypto')
+		, Files = require(__dirname+'/../db/files')
+		, formatSize = require(__dirname+'/../lib/converter/formatsize.js')
+		, FileType = require('file-type')
+		, mimeTypes = require(__dirname+'/../lib/file/mimetypes.js')
+		, config = require(__dirname+'/../lib/misc/config.js')
+		, imageThumbnail = require(__dirname+'/../lib/file/image/imagethumbnail.js')
+		, videoThumbnail = require(__dirname+'/../lib/file/video/videothumbnail.js')
+		, ffprobe = require(__dirname+'/../lib/file/ffprobe.js')
+		, timeUtils = require(__dirname+'/../lib/converter/timeutils.js')
+		, { pathExists, stat: fsStat } = require('fs-extra')
+		, uploadDirectory = require(__dirname+'/../lib/file/uploaddirectory.js')
+		, fixGifs = require(__dirname+'/../lib/file/image/fixgifs.js')
+		, getDimensions = require(__dirname+'/../lib/file/image/getdimensions.js')
+		, audioThumbnail = require(__dirname+'/../lib/file/audio/audiothumbnail.js');
+
+	const { thumbSize, thumbExtension, videoThumbPercentage, audioThumbnails } = config.get;
+
+	const jschanFiles = [];
+	if (post.files) {
+		const vichanFiles = JSON.parse(post.files);
+		for (const file of vichanFiles) {
+			// jschan has no "file deleted" image :(
+			if (file.file === 'deleted') {
+				continue;
+			}
+
+			let jschanFile = {};
+
+			jschanFile.spoiler = file.thumb === 'spoiler' || null;
+			jschanFile.size = file.size;
+			jschanFile.sizeString = formatSize(jschanFile.size);
+			jschanFile.extension = `.${file.extension}`;
+			//const nameParts = file.filename.split('.');
+
+			// vichan has so many duplicates:
+			// name, full_path, filename... is there any difference??
+			jschanFile.originalFilename = file.filename;
+
+			// calculate hash
+			const vichanFileLocation = `${filesLocation}/${file.file_path}`;
+			const rs = fs.createReadStream(vichanFileLocation);
+			const hash = crypto.createHash('sha256').setEncoding('hex');
+			await pipeline(
+				rs,
+				hash
+			);
+			jschanFile.hash = hash.read();
+			jschanFile.filename = jschanFile.hash + jschanFile.extension;
+			// don't bother setting phash because I'm lazy
+
+			jschanFile.mimetype = (await FileType.fromFile(vichanFileLocation))?.mime;
+
+			// this is NOT always true but it's true for marzichan I'm pretty sure
+			// for some reason txt files weren't getting typed correctly
+			if (jschanFile.extension === '.txt') {
+				jschanFile.mimetype = jschanFile.mimetype || 'text/plain';
+			}
+
+			const jschanFileLocation = __dirname+`/../static/file/${jschanFile.filename}`;
+			const existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${jschanFile.hash}${jschanFile.thumbextension}`);
+			let [ type, subtype ] = jschanFile.mimetype.split('/');
+			switch (type) {
+				case 'image': {
+					jschanFile.thumbextension = '.webp';
+
+					const imageDimensions = await getDimensions(vichanFileLocation, null, true);
+					jschanFile.geometry = imageDimensions;
+					jschanFile.geometryString = `${imageDimensions.width}x${imageDimensions.height}`;
+					const lteThumbSize = (jschanFile.geometry.height <= thumbSize
+						&& jschanFile.geometry.width <= thumbSize);
+					const allowed = await mimeTypes.allowed(jschanFile, {image: true});
+					jschanFile.hasThumb = !(await mimeTypes.allowed(jschanFile, {image: true})
+						&& subtype !== 'png'
+						&& lteThumbSize);
+					// copy the actual file over
+					fs.copyFileSync(vichanFileLocation, jschanFileLocation);
+					if (!existsThumb) {
+						await imageThumbnail(jschanFile);
+					}
+					jschanFile = fixGifs(jschanFile);
+					break;
+				}
+				case 'audio':
+				case 'video': {
+					//video metadata
+					const audioVideoData = await ffprobe(vichanFileLocation, null, true);
+					jschanFile.duration = audioVideoData.format.duration;
+					jschanFile.durationString = timeUtils.durationString(audioVideoData.format.duration*1000);
+
+					const videoStreams = audioVideoData.streams.filter(stream => stream.width != null); //filter to only video streams or something with a resolution
+					if (videoStreams.length > 0) {
+						jschanFile.thumbextension = thumbExtension;
+						jschanFile.codec = videoStreams[0].codec_name;
+						jschanFile.geometry = {width: videoStreams[0].coded_width, height: videoStreams[0].coded_height};
+						jschanFile.geometryString = `${jschanFile.geometry.width}x${jschanFile.geometry.height}`;
+						jschanFile.hasThumb = true;
+						// copy the actual file over
+						fs.copyFileSync(vichanFileLocation, jschanFileLocation);
+						if (!existsThumb) {
+							const numFrames = videoStreams[0].nb_frames;
+							const timestamp = ((numFrames === 'N/A' && subtype !== 'webm') || numFrames <= 1) ? 0 : jschanFile.duration * videoThumbPercentage / 100;
+							try {
+								await videoThumbnail(jschanFile, jschanFile.geometry, timestamp);
+							} catch (err) {
+								//No keyframe after timestamp probably. ignore, we'll retry
+								console.warn(err); //printing log because this error can actually be useful and we dont wanna mask it
+							}
+							let videoThumbStat = null;
+							try {
+								videoThumbStat = await fsStat(`${uploadDirectory}/file/thumb/${jschanFile.hash}${jschanFile.thumbextension}`);
+							} catch (err) { /*ENOENT probably, ignore*/ }
+							if (!videoThumbStat || videoThumbStat.code === 'ENOENT' || videoThumbStat.size === 0) {
+								//create thumb again at 0 timestamp and lets hope it exists this time
+								await videoThumbnail(jschanFile, jschanFile.geometry, 0);
+							}
+						}
+					} else {
+						//audio file, or video with only audio streams
+						type = 'audio';
+						jschanFile.mimetype = `audio/${subtype}`;
+						jschanFile.thumbextension = '.png';
+						jschanFile.hasThumb = audioThumbnails;
+						jschanFile.geometry = { thumbwidth: thumbSize, thumbheight: thumbSize };
+						// copy the actual file over
+						fs.copyFileSync(vichanFileLocation, jschanFileLocation);
+						if (jschanFile.hasThumb && !existsThumb) {
+							await audioThumbnail(jschanFile);
+						}
+					}
+					break;
+				}
+				default: {
+					jschanFile.hasThumb = false;
+					jschanFile.attachment = true;
+					break;
+				}
+			}
+
+			if (jschanFile.hasThumb === true && jschanFile.geometry && jschanFile.geometry.width != null) {
+				if (jschanFile.geometry.width < thumbSize && jschanFile.geometry.height < thumbSize) {
+					//dont scale up thumbnail for smaller images
+					jschanFile.geometry.thumbwidth = jschanFile.geometry.width;
+					jschanFile.geometry.thumbheight = jschanFile.geometry.height;
+				} else {
+					const ratio = Math.min(thumbSize/jschanFile.geometry.width, thumbSize/jschanFile.geometry.height);
+					jschanFile.geometry.thumbwidth = Math.floor(Math.min(jschanFile.geometry.width*ratio, thumbSize));
+					jschanFile.geometry.thumbheight = Math.floor(Math.min(jschanFile.geometry.height*ratio, thumbSize));
+				}
+			}
+
+			// insert/increment the file's DB entry
+			await Files.increment(jschanFile);
+			jschanFiles.push(jschanFile);
+		}
+	}
+	return jschanFiles;
 }
 
 // copied sloppily from processip.js
