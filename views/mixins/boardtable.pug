@@ -6,11 +6,11 @@ mixin boardtable(ppd=false, activity=false, owner=false)
 				if owner
 					th #{__('Owner')}
 				th #{__('Description')}
-				th #{__('PPH')}
+				th(nowrap) #{__('This Hour')}
 				if ppd
-					th.nobreak #{__('PPD')}
-				th.nobreak #{__('Users')}
-				th.nobreak #{__('Posts')}
+					th.nobreak #{__('Today')}
+				//th.nobreak #{__('Users')}
+				th.nobreak(nowrap) #{__('Total Posts')}
 				if activity
 					th.nobreak #{__('Latest Activity')}
 			block

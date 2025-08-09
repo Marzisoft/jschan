@@ -58,7 +58,7 @@ block content
 					td #{board.settings.description || '-'}
 					td #{board.pph}
 					td #{board.ppd != null ? board.ppd : '-'}
-					td #{board.ips}
+					//td #{board.ips}
 					td #{board.sequence_value-1}
 					if board.lastPostTimestamp
 						td(style=`background-color: ${board.lastPostTimestamp.color}`) #{board.lastPostTimestamp.text}
