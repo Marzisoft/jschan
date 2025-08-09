@@ -11,6 +11,7 @@ Aside from many changes to theming, layout, and branding, it contains some funct
  - Adds Exif data stripping for files uploaded with posts
  - Replaces per-board banners with a global banner system, including the ability to add authorship/source info as tooltips
    - Currently no site UI for this; it's driven entirely by image and txt files added to `static/global-banner`
+ - Includes a tool for migrating posts from vichan to jschan
 
 Included below is the upstream README.
 
