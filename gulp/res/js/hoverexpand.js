@@ -50,20 +50,24 @@ const positionHoverPopup = (mouseX, mouseY) => {
 	const popupWidth = hoverPopup.offsetWidth;
 	const popupHeight = hoverPopup.offsetHeight;
 
+	const topPadding = 10;
+	const bottomPadding = 25;
+	const mouseOffset = 15;
+
     // Calculate the position to center the popup next to the cursor
-	let left = mouseX + 10; // Offset to the right of the cursor
-	let top = mouseY - (popupHeight / 2); // Center vertically
+	let left = mouseX < window.innerWidth / 2
+		? mouseX + mouseOffset // Offset to right if mouse is on left half of screen
+		: mouseX - mouseOffset - popupWidth; // Otherwise to the left
+
+    // Do some fancy interpolation so that the image's vertical position is in
+    // line with the cursor, but also weighted towards the center of the page
+	let top = ((mouseY / window.innerHeight) * ((window.innerHeight - topPadding - bottomPadding) - popupHeight)) + topPadding;
 
     //bound to left/right
-	if (left + popupWidth > window.innerWidth) {
+	if (left < 0) {
+		left = 0;
+	} else if (left + popupWidth > window.innerWidth) {
 		left = window.innerWidth - popupWidth;
-	}
-
-    //bound to top/bottom
-	if (top < 0) {
-		top = 10; // Prevent going off the top of the screen
-	} else if (top + popupHeight > window.innerHeight) {
-		top = window.innerHeight - popupHeight; // Prevent going off the bottom of the screen
 	}
 
 	hoverPopup.style.left = `${left}px`;
