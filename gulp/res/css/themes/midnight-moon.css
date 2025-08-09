@@ -26,6 +26,11 @@ a.button {
 	color: #ff665e;
 }
 
+/* make these match text color */
+.post-icons img {
+	filter: brightness(0) saturate(100%) invert(85%) sepia(24%) saturate(630%) hue-rotate(202deg) brightness(101%) contrast(101%);
+}
+
 :root {
 	--background-top: #353e57;
 	--background-rest: #1f1b29;

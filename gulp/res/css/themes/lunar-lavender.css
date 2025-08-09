@@ -35,6 +35,11 @@ th a:hover, a.label:hover , .label a:hover {
 	color: #9d0034;
 }
 
+/* make these match text color */
+.post-icons img {
+	filter: brightness(0) saturate(100%) invert(8%) sepia(82%) saturate(6681%) hue-rotate(286deg) brightness(52%) contrast(128%);
+}
+
 :root {
 	--background-top: #e0fffd;
 	--background-rest: #f3edff;
