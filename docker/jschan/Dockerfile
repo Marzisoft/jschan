@@ -18,4 +18,4 @@ ENV MONGO_USERNAME jschan
 ENV MONGO_PASSWORD changeme
 ENV REDIS_PASSWORD changeme
 
-CMD ["/bin/sh", "-c", "gulp generate-favicon; gulp; pm2-runtime start ecosystem.config.js"]
+CMD ["/bin/sh", "-c", "npx gulp generate-favicon; npx gulp; npx pm2 start ecosystem.config.js"]
