@@ -121,7 +121,7 @@ module.exports = async (req, res) => {
 		message: __n('Added %s bans', numBans),
 	};
 
-	if ((req.body.ban || req.body.global_ban ) && req.body.ban_reason) {
+	if (req.body.post_ban_message && (req.body.ban || req.body.global_ban) && req.body.ban_reason) {
 		res.locals.actions.numBuild++;//there was a ban reason, so we may need to rebuild some pages, since banning is usually not a building action
 		query['action'] = '$set';
 		query['query'] = {

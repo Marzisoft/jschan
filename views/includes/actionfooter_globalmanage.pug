@@ -41,6 +41,9 @@ details.toggle-label#actionform
 		label
 			input.post-check(type='checkbox', name='preserve_post' value='1')
 			| #{__('Show Post In Ban')}
+		label
+			input.post-check(type='checkbox', name='post_ban_message' value='0')
+			| #{__('Show Ban Reason Publicly')}
 		//label
 		//	input.post-check(type='checkbox', name='hide_name' value='1')
 		//	| #{__('Hide Username In Modlog')}
