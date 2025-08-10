@@ -111,6 +111,18 @@ module.exports = async (req, res) => {
 				'redirect': redirect
 			});
 		}
+		if (res.locals.board.settings.autoBumplockTime > 0
+			&& Date.now() > thread.date.getTime() + res.locals.board.settings.autoBumplockTime) { //auto bumplock after x time
+			//bumplock the thread
+			await Posts.db.updateOne({
+				_id: thread._id,
+			}, {
+				'$set': {
+					bumplocked: Mongo.NumberInt(1),
+				}
+			});
+			thread.bumplocked = 1;
+		}
 	}
 
 	//filters
@@ -741,7 +753,7 @@ module.exports = async (req, res) => {
 		}
 	}
 
-	//always rebuild catalog for post counts and ordering
+	//always rebuild catalog for post counts, ordering, sticky/bumplock/etc
 	buildQueue.push({
 		'task': 'buildCatalog',
 		'options': {

@@ -107,7 +107,7 @@ const handleMouseMove = (event) => {
 
 const toggleHoverExpand = () => {
 	hoverExpandEnabled = !hoverExpandEnabled;
-	localStorage.setItem('hoverExpand', hoverExpandEnabled);
+	localStorage.setItem('hoverexpandsmedia', hoverExpandEnabled);
 	console.log('hover expand setting:', hoverExpandEnabled);
 };
 
@@ -141,7 +141,7 @@ window.addEventListener('settingsReady', function() {
 });
 
 window.addEventListener('addPost', function(e) {
-	const newMediaElements = e.detail.post.querySelectorAll('.post-file-src[data-type="image"], .post-file-src[data-type="video"], .post-file-src[data-type="audio"]');
+	const newMediaElements = e.detail.post.querySelectorAll(hoverMediaSelector);
 	attachHoverListeners(newMediaElements);
 });
 
