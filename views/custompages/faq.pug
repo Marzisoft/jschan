@@ -25,7 +25,7 @@ block content
 					ul.mv-0
 						li: a(href='#catalog') How do I browse through the threads on a board?
 						li: a(href='#track-threads') How can I keep track of the threads I'm interested in?
-						li: a(href='#notifications') How can I get notified when someone replies to me?
+						li: a(href='#notifications') How can I get system notifications for new posts in a thread?
 						li: a(href='#dark') How do I use dark mode?
 						li: a(href='#reports') How do I report a post that breaks the rules?
 					b Posting
@@ -147,7 +147,7 @@ block content
 		.anchor#notifications
 		table
 			tr
-				th: a(href='#track-threads') How can I get notified when someone replies to me?
+				th: a(href='#notifications') How can I get system notifications for new posts in a thread?
 			tr
 				td
 					p
@@ -155,11 +155,11 @@ block content
 						br
 						| Make sure to allow notifications when your browser asks you!
 					p
-						| This will give you a desktop/push notification whenever someone links to your post in their reply, provided you have the page open in your browser.
+						| This will give you a desktop/push notification whenever someone posts in the thread you're viewing, or, if you check the "Only notify (You)s" option, only when someone replies to you directly.
 					p
-						| Keep in mind that even if someone posts in a thread you made, if they don't link to one of your posts directly, you won't get a notification. Consider using the 
+						| Keep in mind that you'll only get notifications for threads that you currently have open in your browser. Consider using the 
 						a(href='#track-threads') thread watcher
-						|  for that.
+						|  to keep track of new posts that get made while you're not on the site.
 	.table-container.flex-center.mv-5
 		.anchor#dark
 		table
