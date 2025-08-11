@@ -90,7 +90,7 @@ const hideHoverPopup = () => {
 };
 
 const handleMouseOver = async (event) => {
-	if (!hoverExpandEnabled) { return; }
+	if (!hoverExpandEnabled || event.pointerType !== 'mouse') { return; }
 	const thumbElement = event.currentTarget.querySelector('.file-thumb');
 	if (thumbElement //if its already expanded, or is spoilered, don't allow hover
         && (thumbElement.style.display === 'none'
@@ -122,7 +122,7 @@ const toggleHoverExpandFollow = () => {
 
 const attachHoverListeners = (elements) => {
 	elements.forEach(media => {
-		media.addEventListener('mouseover', handleMouseOver);
+		media.addEventListener('pointerenter', handleMouseOver);
 		media.addEventListener('mouseout', hideHoverPopup);
 		media.addEventListener('click', hideHoverPopup);
 	});
