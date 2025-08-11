@@ -105,11 +105,7 @@ main {
 	box-shadow: none;
 }
 
-#postform {
-	box-shadow: 2px 2px var(--post-outline-color);
-}
-
-#tegakiwindow {
+#postform, #threadwatcher, #tegakiwindow {
 	box-shadow: 2px 2px var(--post-outline-color);
 }
 
