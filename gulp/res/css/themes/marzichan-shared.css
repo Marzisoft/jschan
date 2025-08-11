@@ -166,6 +166,10 @@ input, select, textarea {
 	cursor: auto;
 }
 
+/* make styling of window buttons consistent */
 #tegakiwindow #minimise, #tegakiwindow #maximise, #tegakiwindow #close, #threadwatcher #minimise {
 	color: var(--link-color);
+}
+#tegakiwindow #close:hover, #tegakiwindow #maximise:hover, #tegakiwindow #minimise:hover, #threadwatcher #minimise:hover {
+	color:var(--link-hover);
 }
