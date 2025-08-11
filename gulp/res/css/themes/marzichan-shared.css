@@ -166,6 +166,6 @@ input, select, textarea {
 	cursor: auto;
 }
 
-#tegakiwindow #minimise, #tegakiwindow #maximise, #tegakiwindow #close {
+#tegakiwindow #minimise, #tegakiwindow #maximise, #tegakiwindow #close, #threadwatcher #minimise {
 	color: var(--link-color);
 }
