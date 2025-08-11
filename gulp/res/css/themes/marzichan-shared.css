@@ -76,6 +76,16 @@ main {
 	padding: 5px;
 }
 
+#tegakiwindow {
+	border: 1px solid var(--box-border-color);
+}
+
+/* don't cram the buttons into the edge of the window */
+#tegakiwindow-dragHandle {
+	width: auto;
+	padding: 0 5px;
+}
+
 .floatactions[open] #action-menu {
 	right: 5px;
 }
@@ -96,6 +106,10 @@ main {
 }
 
 #postform {
+	box-shadow: 2px 2px var(--post-outline-color);
+}
+
+#tegakiwindow {
 	box-shadow: 2px 2px var(--post-outline-color);
 }
 
@@ -154,4 +168,8 @@ input, select, textarea {
 /* don't hide cursor on spoilers, that's weird */
 .spoiler {
 	cursor: auto;
+}
+
+#tegakiwindow #minimise, #tegakiwindow #maximise, #tegakiwindow #close {
+	color: var(--link-color);
 }
