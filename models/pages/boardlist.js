@@ -91,6 +91,10 @@ module.exports = async (req, res, next) => {
 		.set('Cache-Control', 'public, max-age=60');
 
 	if (req.path === '/boards.json') {
+		//hide IPs for user privacy
+		for (const board of boards) {
+			board.ips = 0;
+		}
 		res.json({
 			boards,
 			page,
