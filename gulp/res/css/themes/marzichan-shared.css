@@ -140,6 +140,28 @@ input, select, textarea {
 	font-family: "Inter", "M PLUS 1p", "Noto Emoji", "Noto Sans Symbols", sans-serif;
 }
 
+#tegaki {
+	font-family: "Inter", "M PLUS 1p", "Noto Emoji", "Noto Sans Symbols", sans-serif;
+}
+
+/* remove VS-16 from some tegaki icons */
+.tegaki-pen:before { content: '🖊'; }
+.tegaki-pencil:before { content: '✏'; }
+.tegaki-eraser:before { content: '✏'; transform: rotate(180deg); }
+.tegaki-tone:before { content: '🕶'; }
+.tegaki-down-open:before { content: '⬇'; }
+.tegaki-up-open:before { content: '⬆'; }
+.tegaki-level-down:before { content: '⤵'; }
+.tegaki-play:before { content: '▶'; }
+.tegaki-pause:before { content: '⏸'; }
+.tegaki-left-open:before { content: '⬅'; }
+.tegaki-right-open:before { content: '➡'; }
+
+/* make selected tool light up */
+.tegaki-tool-active {
+	color: var(--link-color);
+}
+
 /* replace cog with hamburger menu, to look nicer with fonts */
 @media only screen and (max-width: 600px) {
 	#settings::after {
