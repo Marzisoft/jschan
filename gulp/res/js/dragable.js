@@ -21,8 +21,7 @@ class Dragable {
 		this.target.style.right = 'unset';
 		this.sizeObserver = new ResizeObserver(entries => {
 			//make sure windows that resize after init (like tegaki) stay onscreen
-			this.moveOnScreen();
-			this.updateCallback && this.updateCallback();
+			this.updateMaxSizes();
 		})
 		this.sizeObserver.observe(this.target);
 		this.target.addEventListener('opened', e => this.updateMaxSizes(e));
@@ -54,10 +53,14 @@ class Dragable {
 		const { clientWidth, clientHeight } = document.documentElement;
 		//move as close to old location as we can while staying onscreen
 		if (rect.right > clientWidth) {
-			this.target.style.left = `${this.inBounds(rect.left, 0, rect.width, clientWidth)}px`;
+			let left = `${this.inBounds(rect.left, 0, rect.width, clientWidth)}px`;
+			left = left < 0 ? 0 : left;
+			this.target.style.left = `${left}px`;
 		}
 		if (rect.bottom > clientHeight) {
-			this.target.style.top = `${this.inBounds(rect.top, 0, rect.height, clientHeight)}px`;
+			let top = `${this.inBounds(rect.top, 0, rect.height, clientHeight)}px`;
+			top = top < 0 ? 0 : left;
+			this.target.style.top = `${top}px`;
 		}
 	}
 
