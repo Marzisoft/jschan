@@ -59,7 +59,7 @@ class Dragable {
 		}
 		if (rect.bottom > clientHeight) {
 			let top = `${this.inBounds(rect.top, 0, rect.height, clientHeight)}px`;
-			top = top < 0 ? 0 : left;
+			top = top < 0 ? 0 : top;
 			this.target.style.top = `${top}px`;
 		}
 	}
