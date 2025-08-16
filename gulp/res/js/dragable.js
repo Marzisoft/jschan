@@ -51,8 +51,7 @@ class Dragable {
 
 	moveOnScreen() {
 		const rect = this.target.getBoundingClientRect();
-		const clientWidth = document.documentElement.clientWidth;
-		const clientHeight = document.documentElement.clientHeight;
+		const { clientWidth, clientHeight } = document.documentElement;
 		//move as close to old location as we can while staying onscreen
 		if (rect.right > clientWidth) {
 			this.target.style.left = `${this.inBounds(rect.left, 0, rect.width, clientWidth)}px`;
