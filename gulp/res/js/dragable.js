@@ -19,11 +19,11 @@ class Dragable {
 			this.target.style.left = savedLeft;
 		}
 		this.target.style.right = 'unset';
-		this.sizeObserver = new ResizeObserver(entries => {
+		this.sizeObserver = new ResizeObserver(() => {
 			//make sure windows that resize after init (like tegaki) stay onscreen
 			this.moveOnScreen();
 			this.updateCallback && this.updateCallback();
-		})
+		});
 		this.sizeObserver.observe(this.target);
 		this.target.addEventListener('opened', e => this.updateMaxSizes(e));
 		this.handle.addEventListener('mousedown', e => this.startDrag(e));
