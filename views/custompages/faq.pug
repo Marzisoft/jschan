@@ -308,10 +308,10 @@ block content
 						a(rel='nofollow' referrerpolicy='same-origin' target='_blank' href='https://github.com/highlightjs/highlight.js/blob/master/SUPPORTED_LANGUAGES.md') many different languages
 						| . 
 						br
-						| Some languages can be auto-detected if none is specified. Those would be: #{codeLanguages.join(', ')}. 
-					p
-						| If the language is "plain", an unsupported value, or the auto-detect confidence is too low, highlighting is disabled for the code block. 
-						| If the language is "aa", a Shift JIS art-friendly font will be used.
+						| Some languages can be auto-detected if no language is specified, including: #{codeLanguages.join(', ')}.
+					p If you enter "plain" as the language, or enter a language that isn't supported, highlighting will be disabled. The same thing will happen if you don't specify a language and it can't be automatically deduced.
+					p You can enter "aa" as the language to get a Shift JIS art-friendly font (as seen above).
+					p Please note that the closing tag for multiline code tags (```) must be on its own line!
 	.table-container.flex-center.mv-5
 		.anchor#filetypes
 		table
