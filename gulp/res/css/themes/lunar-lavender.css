@@ -40,6 +40,11 @@ th a:hover, a.label:hover , .label a:hover {
 	filter: brightness(0) saturate(100%) invert(8%) sepia(82%) saturate(6681%) hue-rotate(286deg) brightness(52%) contrast(128%);
 }
 
+/* fix even-numbered table rows on highlighted FAQ */
+.anchor:target + table tr:nth-child(2n+1) {
+	background: var(--highlighted-post-color-alt);
+}
+
 :root {
 	--background-top: #e0fffd;
 	--background-rest: #f3edff;
@@ -48,6 +53,7 @@ th a:hover, a.label:hover , .label a:hover {
 	--post-color: #e4d3fd;
 
 	--highlighted-post-color: #fff5b2;
+	--highlighted-post-color-alt: #efe28f;
 	--highlighted-post-outline-color: #bfaf6c;
 
 	--post-outline-color: #a490c4;

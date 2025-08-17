@@ -31,6 +31,11 @@ a.button {
 	filter: brightness(0) saturate(100%) invert(85%) sepia(24%) saturate(630%) hue-rotate(202deg) brightness(101%) contrast(101%);
 }
 
+/* fix even-numbered table rows on highlighted FAQ */
+.anchor:target + table tr:nth-child(2n+1) {
+	background: var(--highlighted-post-color-alt);
+}
+
 :root {
 	--background-top: #353e57;
 	--background-rest: #1f1b29;
@@ -39,6 +44,7 @@ a.button {
 	--post-color: #2c263c;
 
 	--highlighted-post-color: #353115;
+	--highlighted-post-color-alt: #3f3a18;
 	--highlighted-post-outline-color: #bfaf6c;
 
 	--post-outline-color: #a490c4;
