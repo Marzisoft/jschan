@@ -224,9 +224,9 @@ block content
 				td
 					span.greentext &gt;greentext
 			tr
-				td ##title##
+				td **italic**
 				td
-					span.title title
+					span.em italic
 			tr
 				td ***bold***
 				td
@@ -244,12 +244,15 @@ block content
 				td
 					span.spoiler spoiler text
 			tr
-				td **italic**
+				td ##title##
 				td
-					span.em italic
+					span.title title
 			tr
-				td https://example.com
-				td: a(href='#!') https://example.com
+				td
+					| ##fortune
+				td
+					span.fortune Something fortuitous..?
+					|  One per post.
 			tr
 				td &gt;&gt;123
 				td: a(class="quote" href="#!") &gt;&gt;123
@@ -260,15 +263,12 @@ block content
 				td &gt;&gt;&gt;/meta/123
 				td: a(class="quote" href="#!") &gt;&gt;&gt;/meta/123
 			tr
+				td https://example.com
+				td: a(href='#!') https://example.com
+			tr
 				td ``inline monospace``
 				td
 					span.mono inline monospace
-			tr
-				td
-					| ##fortune
-				td
-					span.fortune Something fortuitous..?
-					|  One per post.
 			tr
 				td
 					| ```language
