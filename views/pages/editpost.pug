@@ -49,7 +49,7 @@ block content
 							|  
 							span.reason(data-reason=post.banmessage) #{post.banmessage}
 			label.mt-5
-				input.post-check(type='checkbox', name='hide_name' value='1')
+				input.post-check(type='checkbox', name='hide_name' value='1' checked)
 				| #{__('Hide Username')}
 			label.mv-5
 				input(type='text', name='log_message', placeholder=__('Modlog message') autocomplete='off')
