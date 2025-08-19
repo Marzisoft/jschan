@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
 				acc[post.ip.cloak] = [];
 			}
 			acc[post.ip.cloak].push(post);
-			if (req.body.ban_reason) {
+			if (req.body.post_ban_message && req.body.ban_reason) {
 				//send banmessage over websocket
 				Socketio.emitRoom(`${post.board}-${post.thread || post.postId}`, 'markPost', {
 					postId: post.postId,
