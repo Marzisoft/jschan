@@ -2,7 +2,7 @@ FROM python:3
 
 RUN	git clone https://github.com/Marzisoft/globalafk.git && \
 	cd ./globalafk && \
-	git checkout cc757d8df9f1a7b85463a88fe1c7097f17dd1f7f && \
+	git checkout 24b822b1a081ae5802e54a3b7324581acb031996 && \
 	pip3 install -r requirements.txt
 
 # use this to test changes to a local copy

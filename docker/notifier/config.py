@@ -14,7 +14,8 @@ WATCH_REPORTS: bool = True
 FETCH_REPORTS_INTERVAL: int = 60 * 1
 REPORTS_BOARDS: tuple = (
     None,
-    'test',
+    'plaza',
+    'meta',
 )
 
 """Recent watcher"""
