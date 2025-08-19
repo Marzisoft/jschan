@@ -34,7 +34,7 @@ const boards = [ 'myboard1', 'myboard2' ];
 
 // The path to your vichan instance (or a copy). This is where we'll grab the uploaded files from.
 // You can point this to a whole vichan instance if you want, but really all we need are the board folders,
-// which contains the uploads.
+// which contain the uploads.
 const filesLocation = './vichan-files';
 
 // special tweak for marzichan's capcode styling, normally this would be '## '
