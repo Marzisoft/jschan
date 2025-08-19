@@ -1,8 +1,8 @@
-This is a fork of jschan that will run on https://marzichan.org.  
+This is a fork of jschan that runs on https://marzichan.org.  
 Aside from many changes to theming, layout, and branding, it contains some functional tweaks, such as:
  - Improved docker support; meant to be run via docker in production
  - Tegaki replays that are paired with an image don't count towards the files-per-post limit
- - Adds a override for the legacy favicon (.ico), to get around scaling issues with generate-favicon
+ - Adds an override for the legacy favicon (.ico), to get around scaling issues with generate-favicon
    - To use, place the desired legacy favicon in `gulp/res/icons/master.ico`
  - Adds a special filter to reduce certain types of spam
  - Adds an integrated [notifier system](https://github.com/Marzisoft/globalafk) which generates password-gated Atom feeds and sends Discord messages
@@ -12,6 +12,7 @@ Aside from many changes to theming, layout, and branding, it contains some funct
  - Replaces per-board banners with a global banner system, including the ability to add authorship/source info as tooltips
    - Currently no site UI for this; it's driven entirely by image and txt files added to `static/global-banner`
  - Includes a tool for migrating posts from vichan to jschan
+
 ...and a variety of smaller changes, too.
 
 Included below is the upstream README.
