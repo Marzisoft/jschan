@@ -32,7 +32,9 @@ const database = 'vichan';
 // You should create these boards on jschan first, then run the import.
 const boards = [ 'myboard1', 'myboard2' ];
 
-// The path to uploaded files. You'll need to copy these from your vichan instance.
+// The path to your vichan instance (or a copy). This is where we'll grab the uploaded files from.
+// You can point this to a whole vichan instance if you want, but really all we need are the board folders,
+// which contains the uploads.
 const filesLocation = './vichan-files';
 
 // special tweak for marzichan's capcode styling, normally this would be '## '
@@ -226,7 +228,7 @@ async function makeJschanPost(db, post) {
 
 // the messiest part of this script by far...
 // honestly the rest of the script is pretty clean compared to this one section.
-// probably broken in lots of specific and weird ways because I didn't polish this;
+// may be subtly broken for certain edge cases.
 // it contains lots of logic partially ripped from makepost.js
 async function makeJschanFiles(post) {
 	const fs = require('fs')
@@ -264,7 +266,6 @@ async function makeJschanFiles(post) {
 			jschanFile.size = file.size;
 			jschanFile.sizeString = formatSize(jschanFile.size);
 			jschanFile.extension = `.${file.extension}`;
-			//const nameParts = file.filename.split('.');
 
 			// vichan has so many duplicates:
 			// name, full_path, filename... is there any difference??
