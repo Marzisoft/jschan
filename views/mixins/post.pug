@@ -36,7 +36,7 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 					if !post.thread
 						include ../includes/posticons.pug
 					if (post.email === 'sage')
-						span.post-subject ↓
+						span.post-subject(title=__('No-bump')) ↓
 						| 
 					if post.subject
 						span.post-subject #{post.subject}
