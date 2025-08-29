@@ -180,7 +180,10 @@ mixin modal(data)
 								input.mr-1.w50#tegakiheight-setting(type='number')
 
 					.row.mt-5
-						.label #{__('Custom CSS')}
+						.label
+							| #{__('Custom CSS')}
+							small.title #{__('Do NOT use untrusted CSS!')}
+							small.title #{__('Vulnerable to security exploits!')}
 						textarea#customcss-setting(rows=7)
 
 					.row.mt-5
