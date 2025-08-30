@@ -188,6 +188,11 @@ input, select, textarea {
 	cursor: auto;
 }
 
+/* underline titles to give them more of a purpose */
+.title {
+	text-decoration: underline;
+}
+
 /* make styling of window buttons consistent */
 #tegakiwindow #minimise, #tegakiwindow #maximise, #tegakiwindow #close, #threadwatcher #minimise {
 	color: var(--link-color);
