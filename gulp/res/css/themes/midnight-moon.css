@@ -36,6 +36,12 @@ a.button {
 	background: var(--highlighted-post-color-alt);
 }
 
+/* fix low-contrast titles on settings menu */
+.label .title {
+	color: var(--font-color);
+	text-decoration: underline;
+}
+
 :root {
 	--background-top: #353e57;
 	--background-rest: #1f1b29;
@@ -74,5 +80,5 @@ a.button {
 
 	--dice-color: #9a1dbd;
 
-	--title-color: #b096bd;
+	--title-color: #9990ff;
 }

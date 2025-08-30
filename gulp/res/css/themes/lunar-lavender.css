@@ -45,6 +45,12 @@ th a:hover, a.label:hover , .label a:hover {
 	background: var(--highlighted-post-color-alt);
 }
 
+/* fix low-contrast titles on settings menu */
+.label .title {
+	color: var(--font-color);
+	text-decoration: underline;
+}
+
 :root {
 	--background-top: #e0fffd;
 	--background-rest: #f3edff;
