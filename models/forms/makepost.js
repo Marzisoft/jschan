@@ -176,7 +176,8 @@ module.exports = async (req, res) => {
 		const linkShortenerRegex = /https?:\/\/[a-zA-Z0-9-]{1,12}\.[a-zA-Z]{2,5}\/[a-zA-Z0-9]{3,15}(?=$|[^a-zA-Z0-9-])/g;
 		// with some exceptions
 		const whitelistedUrls = [
-			/https?:\/\/youtu.be\//g
+			/https?:\/\/youtu.be\//g,
+			/https?:\/\/strawpoll.com\//g
 		];
 
 		if (res.locals.numFiles > 0) {
